@@ -8,7 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 export default function Shop() {
     const { category } = useParams<{ category: string }>();
     const [selectedSeason, setSelectedSeason] = useState<string>('All');
-    const [sortBy, setSortBy] = useState<string>('Featured');
+    const sortBy = 'Featured';
 
     const normalizedCategory = category?.toLowerCase();
 

@@ -1,17 +1,20 @@
 import { useParams } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { productData } from '../data/productData';
-import { Heart, Minus, Plus, Share2, Star, PlayCircle, ShoppingBag } from 'lucide-react';
+import { Heart, Share2, Star, PlayCircle, ShoppingBag } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAppDispatch } from '../store/hooks';
+import { addToCart } from '../store/slices/cartSlice';
+import { toggleWishlist } from '../store/slices/wishlistSlice';
 
 export default function ProductDetails() {
     const { id } = useParams();
     const product = productData.find(p => p.id === Number(id)) || productData[0];
-    const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState('M');
     const [showStickyHeader, setShowStickyHeader] = useState(false);
     const [activeImage, setActiveImage] = useState(product.image);
+    const dispatch = useAppDispatch();
 
     const sizes = ['S', 'M', 'L', 'XL'];
 
@@ -43,7 +46,10 @@ export default function ProductDetails() {
                                     <span className="text-gray-500 text-sm">{product.price}</span>
                                 </div>
                             </div>
-                            <button className="bg-black text-white px-8 py-3 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-gray-800 transition-colors">
+                            <button
+                                onClick={() => dispatch(addToCart(product))}
+                                className="bg-black text-white px-8 py-3 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-gray-800 transition-colors"
+                            >
                                 Add to Cart
                             </button>
                         </div>
@@ -119,8 +125,8 @@ export default function ProductDetails() {
                                             key={size}
                                             onClick={() => setSelectedSize(size)}
                                             className={`w-12 h-10 flex items-center justify-center text-sm font-bold border transition-all ${selectedSize === size
-                                                    ? 'border-black bg-black text-white'
-                                                    : 'border-gray-200 text-gray-600 hover:border-black'
+                                                ? 'border-black bg-black text-white'
+                                                : 'border-gray-200 text-gray-600 hover:border-black'
                                                 }`}
                                         >
                                             {size}
@@ -129,13 +135,19 @@ export default function ProductDetails() {
                                 </div>
                             </div>
 
-                            <button className="w-full bg-black text-white py-5 font-bold uppercase tracking-widest hover:bg-gray-900 transition-all flex items-center justify-center gap-3">
+                            <button
+                                onClick={() => dispatch(addToCart(product))}
+                                className="w-full bg-black text-white py-5 font-bold uppercase tracking-widest hover:bg-gray-900 transition-all flex items-center justify-center gap-3"
+                            >
                                 <ShoppingBag className="w-4 h-4" />
                                 Add to Cart
                             </button>
 
                             <div className="flex justify-center gap-6 text-gray-500">
-                                <button className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider hover:text-black">
+                                <button
+                                    onClick={() => dispatch(toggleWishlist(product))}
+                                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider hover:text-black"
+                                >
                                     <Heart className="w-4 h-4" /> Wishlist
                                 </button>
                                 <button className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider hover:text-black">

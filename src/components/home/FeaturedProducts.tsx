@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion';
-import { Heart, ShoppingBag } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { productData } from '../../data/productData';
+import { useAppDispatch } from '../../store/hooks';
+import { addToCart } from '../../store/slices/cartSlice';
+import { toggleWishlist } from '../../store/slices/wishlistSlice';
 
 export default function FeaturedProducts() {
+    const dispatch = useAppDispatch();
+
     return (
         <section className="py-24 bg-white">
             <div className="container mx-auto px-4 lg:px-12">
@@ -36,12 +41,18 @@ export default function FeaturedProducts() {
 
                                 {/* Action Overlay (Kona Style) */}
                                 <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-white/90 backdrop-blur-sm">
-                                    <button className="w-full py-3 bg-black text-white text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
+                                    <button
+                                        onClick={() => dispatch(addToCart(product))}
+                                        className="w-full py-3 bg-black text-white text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors"
+                                    >
                                         Add to Cart
                                     </button>
                                 </div>
 
-                                <button className="absolute top-4 right-4 p-2.5 bg-white text-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-red-500 shadow-sm">
+                                <button
+                                    onClick={() => dispatch(toggleWishlist(product))}
+                                    className="absolute top-4 right-4 p-2.5 bg-white text-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-red-500 shadow-sm"
+                                >
                                     <Heart className="w-4 h-4" />
                                 </button>
                             </div>

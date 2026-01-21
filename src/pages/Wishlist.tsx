@@ -47,7 +47,7 @@ export default function Wishlist() {
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm font-bold text-red-600">{item.price}</span>
                                     <button
-                                        onClick={() => dispatch(addToCart({ ...item, quantity: 1 }))}
+                                        onClick={() => dispatch(addToCart(item))}
                                         className="p-2 bg-black text-white rounded-full hover:bg-gray-800 transition-colors"
                                         title="Add to Cart"
                                     >

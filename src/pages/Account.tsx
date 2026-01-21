@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Layout from '../components/layout/Layout';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, EyeOff, Check } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function Account() {
     const [isLogin, setIsLogin] = useState(true);
