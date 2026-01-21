@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Header from './Header';
 import BottomNav from './BottomNav';
+import Footer from './Footer';
 
 interface LayoutProps {
     children: ReactNode;
@@ -21,7 +22,12 @@ export default function Layout({ children, hideHeader = false, hideBottomNav = f
                 {children}
             </main>
 
-            {!hideBottomNav && <BottomNav />}
+            <Footer />
+            {!hideBottomNav && (
+                <div className="lg:hidden">
+                    <BottomNav />
+                </div>
+            )}
         </div>
     );
 }

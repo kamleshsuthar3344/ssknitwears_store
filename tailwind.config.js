@@ -15,6 +15,15 @@ export default {
         sans: ['"Inter"', 'sans-serif'],
         serif: ['"Playfair Display"', 'serif'], // Good for luxury headers
       },
+      animation: {
+        shimmer: 'shimmer 2s linear infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        }
+      },
     },
   },
   plugins: [],

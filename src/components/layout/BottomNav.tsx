@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const navItems = [
     { icon: Home, label: 'Home', path: '/' },
-    { icon: Grid, label: 'Categories', path: '/categories' },
+    { icon: Grid, label: 'Categories', path: '/category' },
     { icon: ShoppingBag, label: 'Cart', path: '/cart' },
     { icon: Heart, label: 'Wishlist', path: '/wishlist' },
     { icon: User, label: 'Account', path: '/account' },
