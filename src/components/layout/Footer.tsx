@@ -12,11 +12,11 @@ const footerLinks = {
         { name: 'Contact', href: '/contact' },
     ],
     support: [
-        { name: 'Track Order', href: '#' },
-        { name: 'Shipping Policy', href: '#' },
-        { name: 'Returns & Refunds', href: '#' },
-        { name: 'Privacy Policy', href: '#' },
-        { name: 'Terms of Service', href: '#' },
+        { name: 'Track Order', href: '/track-order' },
+        { name: 'Shipping Policy', href: '/shipping-policy' },
+        { name: 'Returns & Refunds', href: '/return-policy' },
+        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Terms of Service', href: '/terms' },
     ]
 };
 

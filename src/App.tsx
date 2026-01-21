@@ -9,6 +9,10 @@ import Account from './pages/Account';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import TrackOrder from './pages/TrackOrder';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import ShippingPolicy from './pages/ShippingPolicy';
+import ReturnPolicy from './pages/ReturnPolicy';
 
 function App() {
   return (
@@ -23,6 +27,10 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/track-order" element={<TrackOrder />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsOfService />} />
+      <Route path="/shipping-policy" element={<ShippingPolicy />} />
+      <Route path="/return-policy" element={<ReturnPolicy />} />
     </Routes>
   );
 }
