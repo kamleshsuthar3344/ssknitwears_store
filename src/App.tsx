@@ -17,11 +17,11 @@ import ReturnPolicy from './pages/ReturnPolicy';
 
 import { Toaster } from 'sonner';
 
-import { HelmetProvider } from 'react-helmet-async';
+
 
 function App() {
   return (
-    <HelmetProvider>
+    <>
       <Toaster position="top-center" richColors />
       <ScrollToTop />
       <Routes>
@@ -40,7 +40,7 @@ function App() {
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
         <Route path="/return-policy" element={<ReturnPolicy />} />
       </Routes>
-    </HelmetProvider>
+    </>
   );
 }
 
