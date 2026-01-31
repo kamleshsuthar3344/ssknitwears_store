@@ -4,6 +4,7 @@ import { ChevronDown, Filter, Sparkles, Sun, Snowflake } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import { productData } from '../data/productData';
 import { Link, useParams } from 'react-router-dom';
+import SEO from '../components/common/SEO';
 
 export default function Shop() {
     const { category } = useParams<{ category: string }>();
@@ -24,31 +25,31 @@ export default function Shop() {
         switch (normalizedCategory) {
             case 'men':
                 return {
-                    gradient: 'from-blue-600 via-indigo-500 to-violet-500',
-                    accent: 'text-blue-200',
-                    pill: 'bg-blue-400/20 text-blue-100',
-                    activeButton: 'bg-white text-blue-600'
+                    gradient: 'from-brand-black to-gray-900',
+                    accent: 'text-brand-gold',
+                    pill: 'bg-brand-gold/20 text-brand-gold',
+                    activeButton: 'bg-brand-gold text-black'
                 };
             case 'women':
                 return {
-                    gradient: 'from-rose-400 via-pink-500 to-violet-500',
-                    accent: 'text-rose-100',
-                    pill: 'bg-rose-400/20 text-rose-100',
-                    activeButton: 'bg-white text-rose-600'
+                    gradient: 'from-brand-black to-gray-900',
+                    accent: 'text-brand-gold',
+                    pill: 'bg-brand-gold/20 text-brand-gold',
+                    activeButton: 'bg-brand-gold text-black'
                 };
             case 'kids':
                 return {
-                    gradient: 'from-amber-400 via-orange-500 to-yellow-500',
-                    accent: 'text-amber-100',
-                    pill: 'bg-amber-400/20 text-amber-100',
-                    activeButton: 'bg-white text-orange-600'
+                    gradient: 'from-brand-black to-gray-900',
+                    accent: 'text-brand-gold',
+                    pill: 'bg-brand-gold/20 text-brand-gold',
+                    activeButton: 'bg-brand-gold text-black'
                 };
             default:
                 return {
-                    gradient: 'from-gray-700 to-black',
-                    accent: 'text-gray-300',
-                    pill: 'bg-gray-400/20 text-gray-100',
-                    activeButton: 'bg-white text-black'
+                    gradient: 'from-brand-black to-gray-900',
+                    accent: 'text-brand-gold',
+                    pill: 'bg-brand-gold/20 text-brand-gold',
+                    activeButton: 'bg-brand-gold text-black'
                 };
         }
     };
@@ -81,6 +82,10 @@ export default function Shop() {
 
     return (
         <Layout>
+            <SEO
+                title={`${category?.toUpperCase() || 'Shop'} | SSKNITWEAR`}
+                description={`Shop our premium ${normalizedCategory} collection. ${getDescription()}`}
+            />
             {/* Hero Section */}
             <div className="pt-24 pb-12 px-4">
                 <motion.div
@@ -212,7 +217,7 @@ export default function Shop() {
                                         </div>
                                         <div className="p-6 flex flex-col flex-grow">
                                             <div className="flex justify-between items-start mb-2">
-                                                <span className={`text-[10px] font-black uppercase tracking-widest ${normalizedCategory === 'men' ? 'text-blue-500' : normalizedCategory === 'women' ? 'text-pink-500' : 'text-orange-500'}`}>
+                                                <span className={`text-[10px] font-black uppercase tracking-widest text-brand-gold`}>
                                                     {product.season}
                                                 </span>
                                                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{product.category}</span>

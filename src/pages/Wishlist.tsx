@@ -4,6 +4,7 @@ import { addToCart } from '../store/slices/cartSlice';
 import { Trash2, ShoppingBag } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function Wishlist() {
     const { items } = useAppSelector(state => state.wishlist);
@@ -35,7 +36,10 @@ export default function Wishlist() {
                             <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
                                 <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                                 <button
-                                    onClick={() => dispatch(removeFromWishlist(item.id))}
+                                    onClick={() => {
+                                        dispatch(removeFromWishlist(item.id));
+                                        toast.success(`${item.name} removed from wishlist`);
+                                    }}
                                     className="absolute top-2 right-2 p-2 bg-white/80 backdrop-blur-sm rounded-full text-red-500 hover:bg-white transition-colors"
                                 >
                                     <Trash2 className="w-4 h-4" />
@@ -45,10 +49,13 @@ export default function Wishlist() {
                                 <p className="text-xs text-gray-400 mb-1">{item.category}</p>
                                 <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-3">{item.name}</h3>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-bold text-red-600">{item.price}</span>
+                                    <span className="text-sm font-bold text-brand-gold">{item.price}</span>
                                     <button
-                                        onClick={() => dispatch(addToCart(item as any))}
-                                        className="flex-1 bg-black text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                                        onClick={() => {
+                                            dispatch(addToCart(item as any));
+                                            toast.success(`Moved ${item.name} to Cart`);
+                                        }}
+                                        className="flex-1 bg-brand-black text-white py-2 rounded-lg text-sm font-medium hover:bg-brand-gold hover:text-black transition-colors flex items-center justify-center gap-2"
                                         title="Add to Cart"
                                     >
                                         <ShoppingBag className="w-4 h-4" />

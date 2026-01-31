@@ -52,21 +52,18 @@ export default function Header() {
     return (
         <>
             <motion.header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || isMobileMenuOpen
-                    ? 'bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-100 py-0'
-                    : 'bg-transparent py-2'
-                    }`}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-100 py-0`}
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className={`container mx-auto px-6 flex items-center justify-between transition-all duration-500 ${scrolled ? 'h-20' : 'h-24'}`}>
+                <div className={`container mx-auto px-6 flex items-center justify-between transition-all duration-500 h-20`}>
                     {/* Left: Logo */}
                     <div className="flex-shrink-0">
                         <Link to="/" className="hover:opacity-80 transition-opacity">
                             <img
                                 src="/images/logo.png"
-                                alt="SS Knitwears"
+                                alt="SSKNITWEAR"
                                 className="h-16 w-auto object-contain"
                             />
                         </Link>

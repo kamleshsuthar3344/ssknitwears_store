@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Truck, RotateCcw, Lock, Star, Award, Heart, CheckCircle2, Quote, Users } from 'lucide-react';
 import HeroSlider from '../components/home/HeroSlider';
 import FeaturedProducts from '../components/home/FeaturedProducts';
+import SEO from '../components/common/SEO';
 
 // Enhanced Category Data with Gradients
 const categories = [
@@ -33,6 +34,10 @@ const categories = [
 export default function Home() {
     return (
         <Layout>
+            <SEO
+                title="SSKNITWEAR | Premium Winter Collection"
+                description="Discover the finest knitwear for men, women, and kids. Shop premium quality cardigans, sweaters, and pullovers."
+            />
             {/* Hero Section with Parallax & Glassmorphism */}
             <HeroSlider />
 
@@ -182,7 +187,7 @@ export default function Home() {
                             whileInView={{ opacity: 1, y: 0 }}
                             className="text-4xl md:text-5xl font-serif font-black text-gray-900 mt-2"
                         >
-                            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-pink-500">SS Knitwears</span>
+                            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-pink-500">SSKNITWEAR</span>
                         </motion.h2>
                     </div>
 
@@ -238,26 +243,26 @@ export default function Home() {
             {/* What Our Clients Say (Testimonials) */}
             <section className="py-24 bg-gray-50 rounded-[4rem] mx-4 mb-24">
                 <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
-                        <div className="max-w-xl">
-                            <motion.span
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                className="text-pink-500 font-bold uppercase tracking-widest text-sm"
-                            >
-                                Testimonials
-                            </motion.span>
-                            <motion.h2
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                className="text-4xl md:text-5xl font-serif font-black text-gray-900 mt-2"
-                            >
-                                What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">clients say</span> about us
-                            </motion.h2>
-                        </div>
-                        <div className="flex gap-2">
-                            {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
-                            <span className="ml-2 font-bold text-gray-900">4.9/5 Rating</span>
+                    <div className="text-center mb-16 max-w-2xl mx-auto">
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            className="text-pink-500 font-bold uppercase tracking-widest text-sm block mb-2"
+                        >
+                            Testimonials
+                        </motion.span>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="text-4xl md:text-5xl font-serif font-black text-gray-900 mb-6"
+                        >
+                            What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">clients say</span> about us
+                        </motion.h2>
+                        <div className="flex justify-center items-center gap-2">
+                            <div className="flex gap-1">
+                                {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
+                            </div>
+                            <span className="ml-2 font-bold text-gray-900 uppercase tracking-widest text-xs">4.9/5 Rating</span>
                         </div>
                     </div>
 
@@ -304,7 +309,7 @@ export default function Home() {
                                     </div>
                                 </div>
 
-                                <p className="text-gray-600 leading-relaxed italic mb-6">
+                                <p className="text-gray-800 leading-relaxed italic mb-6">
                                     "{rev.content}"
                                 </p>
 
@@ -318,7 +323,7 @@ export default function Home() {
             </section>
 
             {/* End of Summer Promo Section */}
-            <section className="py-24 bg-[#F9F9F7]">
+            <section className="py-24 bg-black">
                 <div className="container mx-auto px-4 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -326,12 +331,12 @@ export default function Home() {
                         viewport={{ once: true }}
                         className="max-w-2xl mx-auto"
                     >
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
                             End of Summer!
                             <br />
                             <span className="text-3xl md:text-4xl mt-2 block">Up to 40% off on all items.</span>
                         </h2>
-                        <p className="text-gray-500 mb-10 text-lg">
+                        <p className="text-gray-300 mb-10 text-lg">
                             Last chance to take advantage of our discounts!
                         </p>
 
@@ -343,7 +348,7 @@ export default function Home() {
                             />
                             <button
                                 type="button"
-                                className="px-10 py-4 bg-black text-white font-bold hover:bg-gray-800 transition-colors"
+                                className="px-10 py-4 bg-white text-black font-bold hover:bg-gray-200 transition-colors"
                             >
                                 Sign Up
                             </button>

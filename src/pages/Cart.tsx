@@ -3,6 +3,7 @@ import { removeFromCart, updateQuantity } from '../store/slices/cartSlice';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function Cart() {
     const { items, totalAmount } = useAppSelector(state => state.cart);
@@ -15,7 +16,7 @@ export default function Cart() {
                     <h2 className="text-2xl font-serif font-bold text-gray-800 mb-4">
                         Oops no product in Cart, Cart is Empty
                     </h2>
-                    <Link to="/" className="px-6 py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
+                    <Link to="/" className="px-6 py-3 bg-brand-black text-white rounded-full text-sm font-medium hover:bg-brand-gold hover:text-black transition-colors">
                         Start Shopping
                     </Link>
                 </div>
@@ -40,7 +41,10 @@ export default function Cart() {
                                         <div className="flex justify-between items-start">
                                             <h3 className="text-lg font-medium text-gray-900 line-clamp-2">{item.name}</h3>
                                             <button
-                                                onClick={() => dispatch(removeFromCart(item.id))}
+                                                onClick={() => {
+                                                    dispatch(removeFromCart(item.id));
+                                                    toast.error(`${item.name} removed from cart`);
+                                                }}
                                                 className="text-gray-400 hover:text-red-500 transition-colors"
                                             >
                                                 <Trash2 className="w-5 h-5" />
@@ -89,7 +93,10 @@ export default function Cart() {
                                     <span>₹{totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
-                            <button className="w-full py-4 bg-black text-white rounded-xl font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-black/10">
+                            <button
+                                onClick={() => toast.success("Checkout feature coming soon!")}
+                                className="w-full py-4 bg-brand-black text-white rounded-xl font-medium hover:bg-brand-gold hover:text-black transition-colors shadow-lg shadow-black/10"
+                            >
                                 Proceed to Checkout
                             </button>
                         </div>

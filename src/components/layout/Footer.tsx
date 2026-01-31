@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react';
+import { Facebook, Instagram, Mail, MapPin, Phone, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -30,23 +30,40 @@ export default function Footer() {
                     <div className="space-y-6">
                         <img
                             src="/images/logo.png"
-                            alt="SS Knitwears"
+                            alt="SSKNITWEAR"
                             className="h-12 w-auto object-contain"
                         />
                         <p className="text-gray-600 text-sm leading-relaxed max-w-xs">
                             Crafting premium knitwear for the modern wardrobe. Quality materials, timeless designs, and unmatched comfort for the whole family.
                         </p>
                         <div className="flex gap-3">
-                            {[Facebook, Instagram, Twitter].map((Icon, i) => (
-                                <motion.a
-                                    key={i}
-                                    href="#"
-                                    whileHover={{ y: -3 }}
-                                    className="w-10 h-10 bg-white border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:text-black hover:border-black transition-colors shadow-sm"
-                                >
-                                    <Icon className="w-4 h-4" />
-                                </motion.a>
-                            ))}
+                            <motion.a
+                                href="https://www.facebook.com/profile.php?id=61575361025645"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ y: -3 }}
+                                className="w-10 h-10 bg-white border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:text-black hover:border-black transition-colors shadow-sm"
+                            >
+                                <Facebook className="w-4 h-4" />
+                            </motion.a>
+                            <motion.a
+                                href="https://www.instagram.com/_ss_knitwears/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ y: -3 }}
+                                className="w-10 h-10 bg-white border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:text-black hover:border-black transition-colors shadow-sm"
+                            >
+                                <Instagram className="w-4 h-4" />
+                            </motion.a>
+                            <motion.a
+                                href="https://www.linkedin.com/company/ssknitwears/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ y: -3 }}
+                                className="w-10 h-10 bg-white border border-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:text-black hover:border-black transition-colors shadow-sm"
+                            >
+                                <Linkedin className="w-4 h-4" />
+                            </motion.a>
                         </div>
                     </div>
 
@@ -109,7 +126,7 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
-                    <p>&copy; 2026 SS Knitwears. All rights reserved.</p>
+                    <p>&copy; 2026 SSKNITWEAR. All rights reserved.</p>
                     <div className="flex gap-6">
                         <Link to="/privacy" className="hover:text-gray-600">Privacy</Link>
                         <Link to="/terms" className="hover:text-gray-600">Terms</Link>

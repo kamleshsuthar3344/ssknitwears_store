@@ -9,7 +9,7 @@ export default function HeroSlider() {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrent((prev) => (prev + 1) % sliderData.length);
-        }, 5000);
+        }, 7000);
         return () => clearInterval(timer);
     }, []);
 
@@ -18,11 +18,11 @@ export default function HeroSlider() {
 
             {/* Desktop: Text Section (Left) */}
             {/* Mobile: Text Overlay (Bottom) */}
-            <div className="relative z-10 w-full lg:w-[40%] h-full flex flex-col justify-end lg:justify-center px-8 md:px-16 lg:pl-24 lg:pr-0 pb-24 lg:pb-0 pointer-events-none lg:pointer-events-auto lg:order-1">
+            <div className="relative z-10 w-full lg:w-1/2 h-full flex flex-col justify-end lg:justify-center px-8 md:px-16 lg:px-24 pb-24 lg:pb-0 pointer-events-none lg:pointer-events-auto lg:order-1">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={current}
-                        className="max-w-xl pointer-events-auto text-white lg:text-black"
+                        className="max-w-xl pointer-events-auto text-black"
                     >
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -66,8 +66,8 @@ export default function HeroSlider() {
                             key={index}
                             onClick={() => setCurrent(index)}
                             className={`text-sm font-medium transition-colors ${current === index
-                                ? 'text-white lg:text-black border-b border-white lg:border-black'
-                                : 'text-white/60 lg:text-gray-400 hover:text-white lg:hover:text-gray-600'
+                                ? 'text-black border-b border-black'
+                                : 'text-gray-400 hover:text-gray-600'
                                 }`}
                         >
                             {index + 1 < 10 ? `0${index + 1}` : index + 1}
@@ -78,7 +78,7 @@ export default function HeroSlider() {
 
             {/* Desktop: Image Section (Right) */}
             {/* Mobile: Background Image (Absolute) */}
-            <div className="absolute inset-0 lg:static lg:w-[60%] lg:h-full lg:order-2 overflow-hidden z-0 bg-[#fbf9f6] lg:flex lg:items-end lg:justify-start lg:pl-12">
+            <div className="absolute inset-0 lg:static lg:w-1/2 lg:h-full lg:order-2 overflow-hidden z-0 bg-[#fbf9f6] lg:flex lg:items-end lg:justify-start lg:pl-0">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={current}

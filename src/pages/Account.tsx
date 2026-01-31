@@ -122,7 +122,7 @@ export default function Account() {
                                         required
                                         value={loginEmail}
                                         onChange={(e) => setLoginEmail(e.target.value)}
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-brand-gold focus:border-brand-gold sm:text-sm"
                                         placeholder="you@example.com"
                                     />
                                 </div>
@@ -172,7 +172,7 @@ export default function Account() {
 
                                 <button
                                     type="submit"
-                                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-colors"
+                                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-brand-black hover:bg-brand-gold hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-colors"
                                 >
                                     Login
                                 </button>

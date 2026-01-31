@@ -7,9 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0f172a", // Deep slate for luxury feel
-        accent: "#c0aaf5", // Soft purple/lavender from reference if appropriate, or maybe gold/silver?
-        // Let's stick to neutral luxury first
+        brand: {
+          gold: "#C5A059",
+          cream: "#F9F9F7",
+          red: "#8B0000",
+          black: "#111111",
+        },
+        primary: "#111111",
+        accent: "#C5A059",
       },
       fontFamily: {
         sans: ['"Inter"', 'sans-serif'],
