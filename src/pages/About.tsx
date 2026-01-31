@@ -35,7 +35,7 @@ export default function About() {
                         </div>
                         <div className="md:w-2/5 flex justify-center">
                             <img
-                                src="/images/categories/women.png"
+                                src="/images/categories/women new.png"
                                 alt="SSKNITWEAR Collection"
                                 className="w-full aspect-[4/3] object-cover rounded-[3rem] shadow-xl hover:scale-[1.02] transition-transform duration-500"
                             />
@@ -69,7 +69,7 @@ export default function About() {
                         </div>
                         <div className="lg:w-1/3">
                             <img
-                                src="/images/categories/men.png"
+                                src="/images/categories/men new.jpg"
                                 alt="Brats Style"
                                 className="w-full aspect-[3/4] object-cover rounded-[2.5rem] shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
                             />
