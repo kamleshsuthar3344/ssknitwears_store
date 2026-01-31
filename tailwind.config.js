@@ -8,13 +8,14 @@ export default {
     extend: {
       colors: {
         brand: {
-          gold: "#C5A059",
-          cream: "#F9F9F7",
-          red: "#8B0000",
+          gold: "#C49A6C",
+          cream: "#FFF4E6",
+          red: "#B71C1C",
           black: "#111111",
+          offwhite: "#F9F7F1",
         },
         primary: "#111111",
-        accent: "#C5A059",
+        accent: "#C49A6C",
       },
       fontFamily: {
         sans: ['"Inter"', 'sans-serif'],

@@ -14,8 +14,8 @@ export default function ReturnPolicy() {
                         animate={{ opacity: 1, y: 0 }}
                         className="bg-white rounded-[3rem] p-8 md:p-20 shadow-sm border border-gray-100 max-w-4xl mx-auto"
                     >
-                        <div className="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mb-8">
-                            <RotateCcw className="w-8 h-8 text-pink-600" />
+                        <div className="w-16 h-16 bg-brand-cream rounded-2xl flex items-center justify-center mb-8">
+                            <RotateCcw className="w-8 h-8 text-brand-gold" />
                         </div>
                         <h1 className="text-3xl md:text-5xl font-serif font-black text-gray-900 mb-8">Return, Refund & Cancellation Policy</h1>
 

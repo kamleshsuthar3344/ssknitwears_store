@@ -85,11 +85,11 @@ export default function Contact() {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="bg-white rounded-[3.5rem] p-8 md:p-14 shadow-2xl border border-gray-100 relative overflow-hidden"
                             >
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-violet-100 rounded-full -mr-32 -mt-32 blur-3xl opacity-30"></div>
-                                <div className="relative z-10">
-                                    <div className="mb-10 flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white">
-                                            <MessageSquare className="w-5 h-5" />
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-cream rounded-full -mr-32 -mt-32 blur-3xl opacity-30"></div>
+                                <div className="relative p-12 h-full flex flex-col justify-between">
+                                    <div>
+                                        <div className="w-16 h-16 bg-brand-cream rounded-2xl flex items-center justify-center mb-8">
+                                            <MessageSquare className="w-8 h-8 text-brand-gold" />
                                         </div>
                                         <div>
                                             <h2 className="text-3xl font-serif font-bold text-gray-900 tracking-tight">Send a Message</h2>
@@ -104,7 +104,7 @@ export default function Contact() {
                                                 <input
                                                     type="text"
                                                     placeholder="Enter your name"
-                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-violet-400 focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
+                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
                                                 />
                                             </div>
                                             <div className="space-y-2">
@@ -112,14 +112,14 @@ export default function Contact() {
                                                 <input
                                                     type="email"
                                                     placeholder="name@example.com"
-                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-pink-400 focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
+                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
                                             <label className="text-xs uppercase tracking-widest font-black text-gray-400 ml-4">Subject</label>
-                                            <select className="w-full bg-gray-50 border-2 border-transparent focus:border-orange-400 focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all appearance-none cursor-pointer">
+                                            <select className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all appearance-none cursor-pointer">
                                                 <option>General Inquiry</option>
                                                 <option>Product Support</option>
                                                 <option>Wholesale/B2B</option>
@@ -132,7 +132,7 @@ export default function Contact() {
                                             <textarea
                                                 rows={5}
                                                 placeholder="How can we help you?"
-                                                className="w-full bg-gray-50 border-2 border-transparent focus:border-violet-400 focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300 resize-none"
+                                                className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300 resize-none"
                                             ></textarea>
                                         </div>
 

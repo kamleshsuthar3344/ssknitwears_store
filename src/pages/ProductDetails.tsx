@@ -207,13 +207,13 @@ export default function ProductDetails() {
                             <div className="flex items-center gap-4">
                                 <span className="text-sm font-bold text-gray-900">Share:</span>
                                 <div className="flex gap-3">
-                                    <button onClick={() => handleShare('whatsapp')} className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 hover:bg-green-200 transition-colors">
+                                    <button onClick={() => handleShare('whatsapp')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
                                         <MessageCircle className="w-4 h-4" />
                                     </button>
-                                    <button onClick={() => handleShare('facebook')} className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors">
+                                    <button onClick={() => handleShare('facebook')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
                                         <Facebook className="w-4 h-4" />
                                     </button>
-                                    <button onClick={() => handleShare('instagram')} className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 hover:bg-pink-200 transition-colors">
+                                    <button onClick={() => handleShare('instagram')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
                                         <Instagram className="w-4 h-4" />
                                     </button>
                                     <button onClick={() => handleShare('copy')} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors" title="Copy Link">

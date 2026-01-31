@@ -10,7 +10,7 @@ export default function TrackOrder() {
         <Layout>
             <div className="bg-white min-h-screen">
                 {/* Hero Section */}
-                <section className="relative pt-32 pb-16 bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-400 overflow-hidden">
+                <section className="relative pt-32 pb-16 bg-brand-black overflow-hidden">
                     <div className="absolute inset-0 bg-white/10 backdrop-blur-3xl"></div>
                     <div className="container mx-auto px-6 relative z-10 text-center">
                         <motion.h1
@@ -20,7 +20,7 @@ export default function TrackOrder() {
                         >
                             TRACK YOUR ORDER
                         </motion.h1>
-                        <p className="text-blue-50 mt-4 max-w-lg mx-auto">Enter your order ID and billing email to track your shipping status in real-time.</p>
+                        <p className="text-gray-400 mt-4 max-w-lg mx-auto">Enter your order ID and billing email to track your shipping status in real-time.</p>
                         <div className="w-20 h-1 bg-white mx-auto mt-6 rounded-full opacity-50" />
                     </div>
                 </section>
@@ -32,7 +32,7 @@ export default function TrackOrder() {
                             animate={{ opacity: 1, y: 0 }}
                             className="bg-white rounded-[3.5rem] p-8 md:p-14 shadow-2xl border border-gray-100 relative overflow-hidden"
                         >
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full -mr-32 -mt-32 blur-3xl opacity-50"></div>
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-cream rounded-full -mr-32 -mt-32 blur-3xl opacity-50"></div>
 
                             <form className="relative z-10 space-y-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -43,7 +43,7 @@ export default function TrackOrder() {
                                             placeholder="e.g. #SS-12345"
                                             value={orderId}
                                             onChange={(e) => setOrderId(e.target.value)}
-                                            className="w-full bg-gray-50 border-2 border-transparent focus:border-indigo-400 focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
+                                            className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -51,7 +51,7 @@ export default function TrackOrder() {
                                         <input
                                             type="email"
                                             placeholder="Enter your email"
-                                            className="w-full bg-gray-50 border-2 border-transparent focus:border-indigo-400 focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
+                                            className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
                                         />
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@ export default function TrackOrder() {
                                     </div>
 
                                     <div className="flex flex-col items-center gap-4 relative z-10">
-                                        <div className="w-14 h-14 bg-indigo-500 rounded-full flex items-center justify-center text-white shadow-lg ring-8 ring-indigo-50">
+                                        <div className="w-14 h-14 bg-brand-gold rounded-full flex items-center justify-center text-white shadow-lg ring-8 ring-brand-cream">
                                             <Package className="w-6 h-6" />
                                         </div>
                                         <div className="text-center">

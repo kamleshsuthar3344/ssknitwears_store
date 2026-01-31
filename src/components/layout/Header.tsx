@@ -165,7 +165,7 @@ export default function Header() {
                                     >
                                         <Link
                                             to={link.path}
-                                            className="block text-xl font-serif font-bold py-2 text-gray-900 hover:text-indigo-600 transition-colors"
+                                            className="block text-xl font-serif font-bold py-2 text-gray-900 hover:text-brand-gold transition-colors"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
                                             {link.name}

@@ -178,7 +178,7 @@ export default function Home() {
                         <motion.span
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
-                            className="text-violet-600 font-bold uppercase tracking-widest text-sm"
+                            className="text-brand-gold font-bold uppercase tracking-widest text-sm"
                         >
                             Difference that matters
                         </motion.span>
@@ -187,7 +187,7 @@ export default function Home() {
                             whileInView={{ opacity: 1, y: 0 }}
                             className="text-4xl md:text-5xl font-serif font-black text-gray-900 mt-2"
                         >
-                            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-pink-500">SSKNITWEAR</span>
+                            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-brand-gold">SSKNITWEAR</span>
                         </motion.h2>
                     </div>
 
@@ -197,29 +197,29 @@ export default function Home() {
                                 icon: Award,
                                 title: "Premium Quality",
                                 desc: "We use 100% fine cotton and pure wool for unmatched comfort.",
-                                color: "bg-blue-50 text-blue-600",
-                                border: "border-blue-100"
+                                color: "bg-brand-cream text-brand-gold",
+                                border: "border-brand-cream"
                             },
                             {
                                 icon: Heart,
                                 title: "Ethically Made",
                                 desc: "Traditional craftsmanship blended with fair trade practices.",
-                                color: "bg-rose-50 text-rose-600",
-                                border: "border-rose-100"
+                                color: "bg-brand-offwhite text-brand-gold",
+                                border: "border-brand-offwhite"
                             },
                             {
                                 icon: CheckCircle2,
                                 title: "Perfect Fit",
                                 desc: "Precision tailoring ensuring the perfect modern fit for every size.",
-                                color: "bg-emerald-50 text-emerald-600",
-                                border: "border-emerald-100"
+                                color: "bg-brand-cream text-brand-gold",
+                                border: "border-brand-cream"
                             },
                             {
                                 icon: Users,
                                 title: "25+ Years Legacy",
                                 desc: "Trusted by generations for quality and durability in knitwear.",
-                                color: "bg-violet-50 text-violet-600",
-                                border: "border-violet-100"
+                                color: "bg-brand-offwhite text-brand-gold",
+                                border: "border-brand-offwhite"
                             }
                         ].map((item, idx) => (
                             <motion.div
@@ -247,7 +247,7 @@ export default function Home() {
                         <motion.span
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
-                            className="text-pink-500 font-bold uppercase tracking-widest text-sm block mb-2"
+                            className="text-brand-gold font-bold uppercase tracking-widest text-sm block mb-2"
                         >
                             Testimonials
                         </motion.span>
@@ -256,7 +256,7 @@ export default function Home() {
                             whileInView={{ opacity: 1, y: 0 }}
                             className="text-4xl md:text-5xl font-serif font-black text-gray-900 mb-6"
                         >
-                            What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">clients say</span> about us
+                            What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-brand-gold">clients say</span> about us
                         </motion.h2>
                         <div className="flex justify-center items-center gap-2">
                             <div className="flex gap-1">
@@ -273,21 +273,21 @@ export default function Home() {
                                 role: "Regular Customer",
                                 content: "The quality of the Brats pullovers is exceptional. I've been wearing them for 3 seasons and they still look brand new.",
                                 image: "RS",
-                                color: "from-blue-400 to-indigo-500"
+                                color: "from-gray-800 to-brand-gold"
                             },
                             {
                                 name: "Ananya Iyer",
                                 role: "Fashion Blogger",
                                 content: "Dik Dik's winter collection for women is absolutely stunning. The designs are modern and the wool is so soft!",
                                 image: "AI",
-                                color: "from-rose-400 to-pink-500"
+                                color: "from-brand-gold to-brand-cream"
                             },
                             {
                                 name: "Vikram Singh",
                                 role: "Verified Buyer",
                                 content: "Fast delivery and great customer service. The kids' knitwear is durable and my son loves the bright colors.",
                                 image: "VS",
-                                color: "from-orange-400 to-amber-500"
+                                color: "from-gray-900 to-gray-700"
                             }
                         ].map((rev, idx) => (
                             <motion.div
@@ -348,7 +348,7 @@ export default function Home() {
                             />
                             <button
                                 type="button"
-                                className="px-10 py-4 bg-white text-black font-bold hover:bg-gray-200 transition-colors"
+                                className="px-10 py-4 bg-brand-red text-white font-bold hover:bg-red-800 transition-colors"
                             >
                                 Sign Up
                             </button>
