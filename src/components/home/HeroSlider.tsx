@@ -34,10 +34,10 @@ export default function HeroSlider() {
 
                         {/* 
                             Image Section 
-                            - Mobile: Full width layered, object-left alignment (start from left).
+                            - Mobile: 70% width aligned right (leaves 30% left gap for text start). Object-left.
                             - Desktop: Takes right 55%.
                         */}
-                        <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] lg:w-[60%] h-full z-0">
+                        <div className="absolute right-0 top-0 bottom-0 w-[70%] md:w-[60%] lg:w-[60%] h-full z-0">
                             <motion.img
                                 src={sliderData[current].image}
                                 alt={sliderData[current].title}
