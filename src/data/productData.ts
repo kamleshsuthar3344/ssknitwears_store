@@ -1,21 +1,24 @@
 export const sliderData = [
     {
         id: 1,
-        image: '/images/slider/slide1.png',
-        title: 'Winter Collection',
-        subtitle: 'Elegance in every stitch',
+        image: '/images/slider/slider1.png',
+        title: 'Winter Has Arrived.|Amazing new designs.',
+        subtitle: 'FW 18 Collection',
+        link: '/shop/women'
     },
     {
         id: 2,
-        image: '/images/slider/slide2.png',
-        title: 'Modern Fits',
-        subtitle: 'Superior stitching & style',
+        image: '/images/slider/slider2.png',
+        title: 'New Season Trends.|Bold & Beautiful.',
+        subtitle: 'FW 18 Collection',
+        link: '/shop/men'
     },
     {
         id: 3,
         image: '/images/slider/slide3.png',
-        title: 'Premium Knitwear',
-        subtitle: 'Crafted for comfort',
+        title: 'Premium Knitwear.|Crafted for Comfort.',
+        subtitle: 'FW 18 Collection',
+        link: '/shop/women'
     }
 ];
 

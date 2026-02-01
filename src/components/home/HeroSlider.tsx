@@ -1,106 +1,151 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { sliderData } from '../../data/productData';
 
 export default function HeroSlider() {
     const [current, setCurrent] = useState(0);
 
+    const nextSlide = () => {
+        setCurrent((prev) => (prev + 1) % sliderData.length);
+    };
+
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % sliderData.length);
+            nextSlide();
         }, 7000);
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <div className="relative h-screen w-full flex flex-col lg:flex-row bg-[#fbf9f6] overflow-hidden">
+        <section className="relative h-[calc(100vh-60px)] md:h-[calc(100vh-80px)] w-full bg-[#F9F7F1] overflow-hidden">
 
-            {/* Desktop: Text Section (Left) */}
-            {/* Mobile: Text Overlay (Bottom) */}
-            <div className="relative z-10 w-full lg:w-1/2 h-full flex flex-col justify-end lg:justify-center px-8 md:px-16 lg:px-24 pb-24 lg:pb-0 pointer-events-none lg:pointer-events-auto lg:order-1">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={current}
-                        className="max-w-xl pointer-events-auto text-black"
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={current}
+                    className="absolute inset-0 w-full h-full"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <div className="relative w-full h-full max-w-[1920px] mx-auto">
+
+                        {/* 
+                            Image Section 
+                            - Mobile: Absolute positioned to the right, taking up ~55% width, appearing "halfway".
+                            - Desktop: Takes up right ~55%, positioned carefully to minimize gap.
+                        */}
+                        <div className="absolute right-0 top-0 bottom-0 w-[60%] md:w-[60%] lg:w-[60%] h-full z-0">
+                            <motion.img
+                                src={sliderData[current].image}
+                                alt={sliderData[current].title}
+                                className="w-full h-full object-cover object-[center_top] md:object-contain md:object-[20%_100%] lg:object-[10%_100%]"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 1, ease: "easeOut" }}
+                            />
+                        </div>
+
+                        {/* 
+                            Text Section 
+                            - Mobile: Relative, Left aligned, taking ~60% width to ensure no overlap text-on-face.
+                            - Desktop: Left aligned, coming closer to center.
+                        */}
+                        <div className="absolute left-0 top-0 h-full w-[80%] md:w-[65%] flex flex-col justify-center px-6 md:pl-20 lg:pl-32 z-10">
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                            >
+                                <motion.p
+                                    className="text-black text-xs md:text-sm font-sans font-medium mb-4 tracking-[0.05em]"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3 }}
+                                >
+                                    {sliderData[current].subtitle}
+                                </motion.p>
+
+                                <motion.h1
+                                    className="text-black text-3xl sm:text-4xl md:text-5xl lg:text-[4.5rem] font-serif font-medium mb-8 md:mb-10 leading-[1.1]"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                >
+                                    {typeof sliderData[current].title === 'string' ? (
+                                        sliderData[current].title.split('|').map((line, index) => (
+                                            <span key={index} className="block">
+                                                {line}
+                                            </span>
+                                        ))
+                                    ) : (
+                                        sliderData[current].title
+                                    )}
+                                </motion.h1>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.5 }}
+                                >
+                                    <Link
+                                        to={sliderData[current].link}
+                                        className="inline-flex items-center gap-2 text-black border-b border-black pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors duration-300 text-xs md:text-sm font-bold uppercase tracking-wider group"
+                                    >
+                                        Discover Now
+                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                    </Link>
+                                </motion.div>
+                            </motion.div>
+                        </div>
+
+                    </div>
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Vertical Navigation (Desktop) */}
+            <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-8 z-20">
+                {sliderData.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrent(index)}
+                        className="group flex items-center justify-end gap-3 outline-none"
                     >
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.5 }}
-                            className="text-sm md:text-base font-medium tracking-[0.2em] uppercase mb-4 opacity-90 lg:opacity-100 shadow-black/50 lg:shadow-none drop-shadow-md lg:drop-shadow-none"
-                        >
-                            {sliderData[current].subtitle}
-                        </motion.p>
+                        <span className={`text-xs font-sans font-medium transition-colors duration-300 ${current === index ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'
+                            }`}>
+                            {index + 1}
+                        </span>
 
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium leading-[1.1] mb-8 shadow-black/50 lg:shadow-none drop-shadow-md lg:drop-shadow-none"
-                        >
-                            {sliderData[current].title}
-                        </motion.h1>
-
-                        <motion.button
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            whileHover={{ x: 10 }}
-                            className="group flex items-center gap-2 text-sm font-bold tracking-widest uppercase border-b-2 pb-1 transition-all w-fit border-white lg:border-black shadow-black/50 lg:shadow-none drop-shadow-md lg:drop-shadow-none"
-                        >
-                            Discover Now
-                            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                        </motion.button>
-                    </motion.div>
-                </AnimatePresence>
-
-                {/* Pagination / Dots */}
-                {/* Adjusted for Desktop to sit nicely within the text area */}
-                <div className="absolute bottom-8 left-8 lg:left-24 lg:bottom-12 flex gap-4 pointer-events-auto z-20">
-                    {sliderData.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setCurrent(index)}
-                            className={`text-sm font-medium transition-colors ${current === index
-                                ? 'text-black border-b border-black'
-                                : 'text-gray-400 hover:text-gray-600'
-                                }`}
-                        >
-                            {index + 1 < 10 ? `0${index + 1}` : index + 1}
-                        </button>
-                    ))}
-                </div>
+                        <div className="relative w-8 h-[2px] flex items-center">
+                            {current === index && (
+                                <motion.div
+                                    layoutId="active-nav-line"
+                                    className="h-[2px] bg-black w-8 absolute right-0"
+                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                />
+                            )}
+                            {current !== index && (
+                                <div className="h-[2px] bg-transparent w-8" />
+                            )}
+                        </div>
+                    </button>
+                ))}
             </div>
 
-            {/* Desktop: Image Section (Right) */}
-            {/* Mobile: Background Image (Absolute) */}
-            <div className="absolute inset-0 lg:static lg:w-1/2 lg:h-full lg:order-2 overflow-hidden z-0 bg-[#fbf9f6] lg:flex lg:items-end lg:justify-start lg:pl-0">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={current}
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.2, ease: "easeOut" }}
-                        className="absolute inset-0 lg:relative lg:w-full lg:h-full flex items-end justify-start bg-[#fbf9f6]"
-                    >
-                        {/* Desktop Image: Object Bottom ensures model stands on ground, H-full fills height */}
-                        <img
-                            src={sliderData[current].image}
-                            alt={sliderData[current].title}
-                            className="w-full h-full object-cover object-top lg:w-auto lg:h-full lg:object-contain lg:object-bottom shadow-lg lg:shadow-none"
-                        />
-
-                        {/* Mobile Gradient Overlay (Bottom Up) */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
-                    </motion.div>
-                </AnimatePresence>
+            {/* Mobile Dots (Bottom-Left aligned or Center) */}
+            <div className="absolute bottom-6 left-6 flex gap-3 md:hidden z-20">
+                {sliderData.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrent(index)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${current === index ? 'bg-black scale-125' : 'bg-black/20'
+                            }`}
+                    />
+                ))}
             </div>
 
-        </div>
+        </section>
     );
 }
