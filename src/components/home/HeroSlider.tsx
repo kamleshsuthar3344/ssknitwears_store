@@ -34,14 +34,14 @@ export default function HeroSlider() {
 
                         {/* 
                             Image Section 
-                            - Mobile: Absolute positioned to the right, taking up ~55% width, appearing "halfway".
-                            - Desktop: Takes up right ~55%, positioned carefully to minimize gap.
+                            - Mobile: Full width layered, object-left alignment (start from left).
+                            - Desktop: Takes right 55%.
                         */}
-                        <div className="absolute right-0 top-0 bottom-0 w-[60%] md:w-[60%] lg:w-[60%] h-full z-0">
+                        <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] lg:w-[60%] h-full z-0">
                             <motion.img
                                 src={sliderData[current].image}
                                 alt={sliderData[current].title}
-                                className="w-full h-full object-cover object-[center_top] md:object-contain md:object-[20%_100%] lg:object-[10%_100%]"
+                                className="w-full h-full object-cover object-left md:object-contain md:object-[50%_100%] lg:object-[30%_100%]"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 1, ease: "easeOut" }}
@@ -50,10 +50,10 @@ export default function HeroSlider() {
 
                         {/* 
                             Text Section 
-                            - Mobile: Relative, Left aligned, taking ~60% width to ensure no overlap text-on-face.
-                            - Desktop: Left aligned, coming closer to center.
+                            - Mobile: Left aligned, taking full width (layered over background).
+                            - Desktop: Left aligned, taking 45% width.
                         */}
-                        <div className="absolute left-0 top-0 h-full w-[80%] md:w-[65%] flex flex-col justify-center px-6 md:pl-20 lg:pl-32 z-10">
+                        <div className="absolute left-0 top-0 h-full w-full md:w-[65%] flex flex-col justify-center px-6 md:pl-20 lg:pl-32 z-10">
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
