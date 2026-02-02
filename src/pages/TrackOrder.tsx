@@ -10,20 +10,45 @@ export default function TrackOrder() {
         <Layout>
             <div className="bg-white min-h-screen">
                 {/* Hero Section */}
-                <section className="relative pt-32 pb-16 bg-brand-black overflow-hidden">
-                    <div className="absolute inset-0 bg-white/10 backdrop-blur-3xl"></div>
-                    <div className="container mx-auto px-6 relative z-10 text-center">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-4xl md:text-6xl font-serif font-bold text-white tracking-tight"
-                        >
-                            TRACK YOUR ORDER
-                        </motion.h1>
-                        <p className="text-gray-400 mt-4 max-w-lg mx-auto">Enter your order ID and billing email to track your shipping status in real-time.</p>
-                        <div className="w-20 h-1 bg-white mx-auto mt-6 rounded-full opacity-50" />
-                    </div>
-                </section>
+                <div className="pt-24 pb-12 px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="container mx-auto rounded-[3rem] overflow-hidden relative min-h-[400px] flex items-center bg-gradient-to-br from-brand-black to-gray-900 shadow-2xl"
+                    >
+                        {/* Decorative Elements */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl" />
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full -ml-20 -mb-20 blur-3xl" />
+
+                        <div className="relative z-10 w-full px-8 md:px-16 py-12 flex flex-col items-center text-center">
+                            <motion.span
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                                className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-brand-gold/20 text-brand-gold mb-6"
+                            >
+                                Order Tracking
+                            </motion.span>
+                            <motion.h1
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="text-4xl md:text-7xl font-serif font-black text-white mb-6"
+                            >
+                                Track Your Order
+                            </motion.h1>
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-lg md:text-xl text-brand-gold max-w-2xl font-medium"
+                            >
+                                Enter your order ID and billing email to track your shipping status in real-time.
+                            </motion.p>
+                        </div>
+                    </motion.div>
+                </div>
 
                 <div className="container mx-auto px-6 py-20">
                     <div className="max-w-4xl mx-auto">

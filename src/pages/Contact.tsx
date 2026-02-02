@@ -158,25 +158,19 @@ export default function Contact() {
 
                 {/* Map/Location Section */}
                 <section className="container mx-auto px-6 pb-20">
-                    <motion.a
-                        href="https://maps.app.goo.gl/fQayW5Chp2XSjRXs5?g_st=aw"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.01 }}
-                        className="block bg-gray-100 h-80 rounded-[3rem] relative overflow-hidden group shadow-inner border border-gray-100"
-                    >
-                        <div className="absolute inset-0 bg-brand-black/20 group-hover:bg-brand-black/10 transition-colors z-10 flex items-center justify-center">
-                            <div className="text-center text-white bg-brand-black/40 backdrop-blur-md px-8 py-6 rounded-2xl border border-white/20 shadow-2xl transition-transform group-hover:scale-110">
-                                <MapPin className="w-8 h-8 mx-auto mb-3 text-brand-gold" />
-                                <p className="font-bold tracking-widest uppercase text-sm">Open in Google Maps</p>
-                            </div>
-                        </div>
-                        <img
-                            src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
-                            alt="Map visualization"
-                            className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                    <div className="bg-gray-100 h-[500px] rounded-[3rem] overflow-hidden shadow-lg border border-gray-100 relative">
+                        <iframe
+                            src="https://maps.google.com/maps?q=C%2010%20Ahuja%20Colony%2C%20Kashipur%20Road%2C%20Rudrapur%20263153&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="SSKNITWEAR Location"
+                            className="grayscale hover:grayscale-0 transition-all duration-700"
                         />
-                    </motion.a>
+                    </div>
                 </section>
             </div>
         </Layout>

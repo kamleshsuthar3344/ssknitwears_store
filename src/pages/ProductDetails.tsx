@@ -216,7 +216,7 @@ export default function ProductDetails() {
                                     <button onClick={() => handleShare('instagram')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
                                         <Instagram className="w-4 h-4" />
                                     </button>
-                                    <button onClick={() => handleShare('copy')} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors" title="Copy Link">
+                                    <button onClick={() => handleShare('copy')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors" title="Copy Link">
                                         <Link className="w-4 h-4" />
                                     </button>
                                 </div>

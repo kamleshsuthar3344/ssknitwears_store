@@ -18,7 +18,7 @@ export const sliderData = [
         image: '/images/slider/slide3.png',
         title: 'Premium Knitwear.|Crafted for Comfort.',
         subtitle: 'FW 18 Collection',
-        link: '/shop/women'
+        link: '/shop/kids'
     }
 ];
 

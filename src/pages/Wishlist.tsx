@@ -30,7 +30,7 @@ export default function Wishlist() {
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-3xl font-serif font-bold mb-8">Your Wishlist</h1>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {items.map((item) => (
                         <div key={item.id} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all">
                             <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
@@ -47,15 +47,15 @@ export default function Wishlist() {
                             </div>
                             <div className="p-4">
                                 <p className="text-xs text-gray-400 mb-1">{item.category}</p>
-                                <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-3">{item.name}</h3>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-sm font-bold text-brand-gold">{item.price}</span>
+                                <h3 className="text-lg font-bold text-gray-900 line-clamp-2 mb-3">{item.name}</h3>
+                                <div className="flex items-center justify-between gap-4 mt-2">
+                                    <span className="text-lg font-bold text-brand-gold whitespace-nowrap">{item.price}</span>
                                     <button
                                         onClick={() => {
                                             dispatch(addToCart(item as any));
                                             toast.success(`Moved ${item.name} to Cart`);
                                         }}
-                                        className="flex-1 bg-brand-black text-white py-2 rounded-lg text-sm font-medium hover:bg-brand-gold hover:text-black transition-colors flex items-center justify-center gap-2"
+                                        className="bg-brand-black text-white px-14 py-2 rounded-lg text-sm font-medium hover:bg-brand-gold hover:text-black transition-colors flex items-center justify-center gap-2"
                                         title="Add to Cart"
                                     >
                                         <ShoppingBag className="w-4 h-4" />

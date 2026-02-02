@@ -69,7 +69,7 @@ export default function About() {
                         </div>
                         <div className="lg:w-1/3">
                             <img
-                                src="/images/categories/men new.jpg"
+                                src="/images/categories/men new.png"
                                 alt="Brats Style"
                                 className="w-full aspect-[3/4] object-cover rounded-[2.5rem] shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
                             />
@@ -105,13 +105,39 @@ export default function About() {
                     </section>
                 </div>
 
-                {/* Footer Quote Area */}
-                <section className="py-20 bg-gray-900 text-white text-center rounded-t-[5rem]">
-                    <div className="container mx-auto px-6">
-                        <p className="text-2xl md:text-3xl font-serif italic mb-4">"Join our community of winterwear enthusiasts"</p>
-                        <p className="text-gray-400 uppercase tracking-[0.5em] text-xs">SSKNITWEAR • EST 2014</p>
-                    </div>
-                </section>
+                {/* Footer Quote Area - Designed like Track Hero */}
+                <div className="py-12 px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="container mx-auto rounded-[3rem] overflow-hidden relative min-h-[300px] flex items-center justify-center bg-gradient-to-br from-brand-black to-gray-900 shadow-2xl"
+                    >
+                        {/* Decorative Elements */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl opacity-60" />
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full -ml-20 -mb-20 blur-3xl" />
+
+                        <div className="relative z-10 w-full px-8 md:px-16 py-12 flex flex-col items-center text-center">
+                            <motion.h2
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.2, duration: 0.5 }}
+                                className="text-3xl md:text-5xl font-serif italic text-white mb-6 leading-tight"
+                            >
+                                "Join our community of winterwear enthusiasts"
+                            </motion.h2>
+                            <motion.span
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.4 }}
+                                className="text-brand-gold uppercase tracking-[0.5em] text-xs font-bold"
+                            >
+                                SSKNITWEAR • EST 2014
+                            </motion.span>
+                        </div>
+                    </motion.div>
+                </div>
             </div>
         </Layout>
     );

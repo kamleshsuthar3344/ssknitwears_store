@@ -98,9 +98,9 @@ export default function Home() {
 
                         {/* Left Image (Summer) - Tilted Left & Floating */}
                         <motion.div
-                            className="w-full md:w-1/3 flex justify-center md:justify-end"
-                            initial={{ opacity: 0, x: -50, rotate: -10 }}
-                            whileInView={{ opacity: 1, x: 0, rotate: -6 }}
+                            className="w-full md:w-1/3 flex justify-center md:justify-end rotate-0 md:-rotate-6"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
@@ -132,17 +132,17 @@ export default function Home() {
                                 Meticulously crafted pieces that blend traditional quality with modern seasonal design. Use code <span className="text-black font-bold">NEW2026</span> for exclusive access.
                             </motion.p>
 
-                            {/* Central "Card" */}
+                            {/* Central "Card" - Desktop Only */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="bg-white p-8 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] inline-block border border-gray-100 relative"
+                                className="hidden md:inline-block bg-white p-8 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 relative"
                             >
                                 <h3 className="text-xl font-serif font-bold mb-2 text-gray-900">New Arrivals</h3>
                                 <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Premium 100% Cotton</p>
-                                <Link to="/shop" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg">
+                                <Link to="/shop" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg box-border block w-full">
                                     Discover
                                 </Link>
                             </motion.div>
@@ -150,9 +150,9 @@ export default function Home() {
 
                         {/* Right Image (Winter) - Tilted Right & Floating */}
                         <motion.div
-                            className="w-full md:w-1/3 flex justify-center md:justify-start"
-                            initial={{ opacity: 0, x: 50, rotate: 10 }}
-                            whileInView={{ opacity: 1, x: 0, rotate: 6 }}
+                            className="w-full md:w-1/3 flex justify-center md:justify-start rotate-0 md:rotate-6"
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
@@ -162,6 +162,21 @@ export default function Home() {
                                     <span className="bg-white/90 backdrop-blur-sm px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">Winter</span>
                                 </div>
                             </div>
+                        </motion.div>
+
+                        {/* Central "Card" - Mobile Only (at bottom) */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                            className="md:hidden w-full max-w-xs mx-auto bg-white p-8 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 relative text-center"
+                        >
+                            <h3 className="text-xl font-serif font-bold mb-2 text-gray-900">New Arrivals</h3>
+                            <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Premium 100% Cotton</p>
+                            <Link to="/shop" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg block w-full">
+                                Discover
+                            </Link>
                         </motion.div>
 
                     </div>
@@ -322,43 +337,48 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* End of Summer Promo Section */}
-            <section className="py-24 bg-black">
-                <div className="container mx-auto px-4 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="max-w-2xl mx-auto"
-                    >
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
+            {/* End of Summer Promo Section - Redesigned like Track Hero */}
+            <div className="py-24 px-4 bg-white">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="container mx-auto rounded-[3rem] overflow-hidden relative min-h-[500px] flex items-center justify-center bg-gradient-to-br from-brand-black to-gray-900 shadow-2xl"
+                >
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl opacity-60" />
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full -ml-20 -mb-20 blur-3xl" />
+
+                    <div className="relative z-10 w-full max-w-2xl px-8 py-12 text-center">
+                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-gold mb-6">
                             End of Summer!
                             <br />
-                            <span className="text-3xl md:text-4xl mt-2 block">Up to 40% off on all items.</span>
+                            <span className="text-white text-3xl md:text-4xl mt-2 block">Up to 40% off on all items.</span>
                         </h2>
                         <p className="text-gray-300 mb-10 text-lg">
                             Last chance to take advantage of our discounts!
                         </p>
 
-                        <form className="flex flex-col sm:flex-row gap-0 max-w-md mx-auto shadow-lg rounded-full overflow-hidden">
+                        <form className="flex flex-col sm:flex-row gap-4 sm:gap-0 max-w-md mx-auto">
                             <input
                                 type="email"
                                 placeholder="Email address"
-                                className="flex-1 bg-white px-8 py-4 text-gray-900 placeholder:text-gray-400 focus:outline-none"
+                                className="flex-1 bg-white px-8 py-4 text-gray-900 placeholder:text-gray-400 focus:outline-none rounded-full sm:rounded-r-none shadow-lg sm:shadow-none"
                             />
                             <button
                                 type="button"
-                                className="px-10 py-4 bg-brand-red text-white font-bold hover:bg-red-800 transition-colors"
+                                className="w-full sm:w-auto px-10 py-4 bg-brand-red text-white font-bold hover:bg-red-800 transition-colors rounded-full sm:rounded-l-none shadow-lg sm:shadow-none"
                             >
                                 Sign Up
                             </button>
                         </form>
-                        <p className="text-xs text-gray-400 mt-4">
+                        <p className="text-xs text-brand-gold mt-4">
                             Sign up to our Newsletter and get the discount code!
                         </p>
-                    </motion.div>
-                </div>
-            </section>
+                    </div>
+                </motion.div>
+            </div>
 
             {/* Features / Services Section */}
             <section className="py-20 bg-white border-t border-gray-100">
