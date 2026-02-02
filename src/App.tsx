@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/common/ScrollToTop';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
+import SeasonCollection from './pages/SeasonCollection';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop/:category" element={<Shop />} />
+        <Route path="/season/:season" element={<SeasonCollection />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />

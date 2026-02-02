@@ -1,92 +1,66 @@
+
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Filter, Sparkles, Sun, Snowflake } from 'lucide-react';
+import { ChevronDown, Filter, Sparkles, User, Users, Baby, Snowflake } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import { productData } from '../data/productData';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
-export default function Shop() {
-    const { category } = useParams<{ category: string }>();
-    const [searchParams] = useSearchParams();
-    const initialSeason = searchParams.get('season') || 'All';
-    const [selectedSeason, setSelectedSeason] = useState<string>(initialSeason);
+export default function SeasonCollection() {
+    const { season } = useParams<{ season: string }>();
+    const [selectedCategory, setSelectedCategory] = useState<string>('All');
     const sortBy = 'Featured';
 
-    const normalizedCategory = category?.toLowerCase();
+    const normalizedSeason = season === 'all' ? 'New Arrivals' : (season ? season.charAt(0).toUpperCase() + season.slice(1).toLowerCase() : 'Summer');
 
-    const filteredByCategory = productData.filter(p =>
-        p.category.toLowerCase() === normalizedCategory
-    );
+    // 1. Filter by Season first
+    const filteredBySeason = season === 'all'
+        ? productData
+        : productData.filter(p => p.season.toLowerCase() === season?.toLowerCase());
 
-    const filteredProducts = filteredByCategory.filter(p =>
-        selectedSeason === 'All' || p.season === selectedSeason
+    // 2. Filter by Category (Men, Women, Kids)
+    const filteredProducts = filteredBySeason.filter(p =>
+        selectedCategory === 'All' || p.category.toLowerCase() === selectedCategory.toLowerCase()
     );
 
     const getHeroStyles = () => {
-        switch (normalizedCategory) {
-            case 'men':
-                return {
-                    gradient: 'from-brand-black to-gray-900',
-                    accent: 'text-brand-gold',
-                    pill: 'bg-brand-gold/20 text-brand-gold',
-                    activeButton: 'bg-brand-gold text-black'
-                };
-            case 'women':
-                return {
-                    gradient: 'from-brand-black to-gray-900',
-                    accent: 'text-brand-gold',
-                    pill: 'bg-brand-gold/20 text-brand-gold',
-                    activeButton: 'bg-brand-gold text-black'
-                };
-            case 'kids':
-                return {
-                    gradient: 'from-brand-black to-gray-900',
-                    accent: 'text-brand-gold',
-                    pill: 'bg-brand-gold/20 text-brand-gold',
-                    activeButton: 'bg-brand-gold text-black'
-                };
-            default:
-                return {
-                    gradient: 'from-brand-black to-gray-900',
-                    accent: 'text-brand-gold',
-                    pill: 'bg-brand-gold/20 text-brand-gold',
-                    activeButton: 'bg-brand-gold text-black'
-                };
-        }
+        return {
+            gradient: 'from-brand-black to-gray-900',
+            accent: 'text-brand-gold',
+            pill: 'bg-brand-gold/20 text-brand-gold',
+            activeButton: 'bg-brand-gold text-black'
+        };
     };
 
     const styles = getHeroStyles();
 
     const getTitle = () => {
-        switch (normalizedCategory) {
-            case 'men': return "Men's Style";
-            case 'women': return "Women's Grace";
-            case 'kids': return "Kids' Joy";
-            default: return "Shop Collection";
-        }
+        return season === 'all' ? 'New Arrivals' : `${normalizedSeason} Collection`;
     };
 
     const getDescription = () => {
-        switch (normalizedCategory) {
-            case 'men': return "Premium knitwear for the modern man. Comfort meets sophistication.";
-            case 'women': return "Elegant designs crafted with love. Your perfect seasonal companions.";
-            case 'kids': return "Colorful and cozy outfits for little adventures and big smiles.";
-            default: return "Explore our comprehensive range of premium knitwear.";
+        if (season === 'all') {
+            return "Explore our complete range of premium knitwear for all seasons. Quality, comfort, and style combined.";
         }
+        if (normalizedSeason === 'Winter') {
+            return "Embrace the chill with our premium warm knitwear. Cozy, stylish, and perfect for the season.";
+        }
+        return "Stay cool and chic with our exclusive summer lightweight collection.";
     };
 
-    const seasons = [
+    const categories = [
         { name: 'All', icon: Sparkles },
-        { name: 'Summer', icon: Sun },
-        { name: 'Winter', icon: Snowflake },
+        { name: 'Men', icon: User },
+        { name: 'Women', icon: Users },
+        { name: 'Kids', icon: Baby },
     ];
 
     return (
         <Layout>
             <SEO
-                title={`${category?.toUpperCase() || 'Shop'} | SSKNITWEAR`}
-                description={`Shop our premium ${normalizedCategory} collection. ${getDescription()}`}
+                title={`${normalizedSeason} Collection | SSKNITWEAR`}
+                description={`Browse our exclusive ${normalizedSeason} collection. ${getDescription()}`}
             />
             {/* Hero Section */}
             <div className="pt-24 pb-12 px-4">
@@ -107,7 +81,7 @@ export default function Shop() {
                             transition={{ delay: 0.3 }}
                             className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest ${styles.pill} mb-6`}
                         >
-                            {normalizedCategory} collection
+                            Limited Edition
                         </motion.span>
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -126,30 +100,66 @@ export default function Shop() {
                             {getDescription()}
                         </motion.p>
 
-                        {/* Seasonal Filter Pills */}
+                        {/* Category Filter Pills (Men, Women, Kids) - OR Season Select for All */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
-                            className="flex flex-wrap justify-center gap-4 bg-black/10 backdrop-blur-md p-2 rounded-[2rem] border border-white/20"
+                            className="flex flex-wrap justify-center gap-4"
                         >
-                            {seasons.map((season) => {
-                                const Icon = season.icon;
-                                const isActive = selectedSeason === season.name;
-                                return (
-                                    <button
-                                        key={season.name}
-                                        onClick={() => setSelectedSeason(season.name)}
-                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${isActive
-                                            ? `${styles.activeButton} shadow-lg scale-105`
-                                            : 'text-white hover:bg-white/10'
-                                            }`}
+                            {season === 'all' ? (
+                                <>
+                                    <Link
+                                        to="/season/summer"
+                                        className="flex items-center gap-3 px-8 py-4 rounded-full text-lg font-bold bg-white text-black hover:bg-brand-gold hover:text-black transition-all duration-300 shadow-xl hover:scale-105"
                                     >
-                                        <Icon className={`w-4 h-4 ${isActive ? 'text-inherit' : 'text-white/70'}`} />
-                                        {season.name}
-                                    </button>
-                                );
-                            })}
+                                        <Sparkles className="w-6 h-6" />
+                                        Shop Summer
+                                    </Link>
+                                    <Link
+                                        to="/season/winter"
+                                        className="flex items-center gap-3 px-8 py-4 rounded-full text-lg font-bold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-xl border border-gray-700 hover:scale-105"
+                                    >
+                                        <Snowflake className="w-6 h-6" />
+                                        Shop Winter
+                                    </Link>
+                                </>
+
+                            ) : (
+                                <div className="flex flex-wrap justify-center gap-4 bg-black/10 backdrop-blur-md p-2 rounded-[2rem] border border-white/20">
+                                    {categories.map((cat) => {
+                                        const Icon = cat.icon;
+                                        const isActive = selectedCategory === cat.name;
+
+                                        if (cat.name === 'All') {
+                                            return (
+                                                <button
+                                                    key={cat.name}
+                                                    onClick={() => setSelectedCategory(cat.name)}
+                                                    className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${isActive
+                                                        ? `${styles.activeButton} shadow-lg scale-105`
+                                                        : 'text-white hover:bg-white/10'
+                                                        }`}
+                                                >
+                                                    <Icon className={`w-4 h-4 ${isActive ? 'text-inherit' : 'text-white/70'}`} />
+                                                    {cat.name}
+                                                </button>
+                                            );
+                                        }
+
+                                        return (
+                                            <Link
+                                                key={cat.name}
+                                                to={`/shop/${cat.name.toLowerCase()}?season=${normalizedSeason}`}
+                                                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 text-white hover:bg-white/10`}
+                                            >
+                                                <Icon className="w-4 h-4 text-white/70" />
+                                                {cat.name}
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </motion.div>
                     </div>
                 </motion.div>
@@ -164,7 +174,7 @@ export default function Shop() {
                         </div>
                         <div>
                             <p className="text-sm font-bold text-gray-900">{filteredProducts.length} Items Found</p>
-                            <p className="text-xs text-gray-400">Showing {selectedSeason} Collection</p>
+                            <p className="text-xs text-gray-400">Showing {selectedCategory === 'All' ? 'All Categories' : selectedCategory}</p>
                         </div>
                     </div>
 
@@ -182,7 +192,7 @@ export default function Shop() {
                 <AnimatePresence mode="wait">
                     {filteredProducts.length > 0 ? (
                         <motion.div
-                            key={selectedSeason}
+                            key={selectedCategory}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
@@ -253,12 +263,12 @@ export default function Shop() {
                                 <Filter className="w-8 h-8 text-gray-300" />
                             </div>
                             <h3 className="text-2xl font-black text-gray-900 mb-2">No Products Found</h3>
-                            <p className="text-gray-500 max-w-sm">We don't have any items in the {selectedSeason} collection for this category yet.</p>
+                            <p className="text-gray-500 max-w-sm">We don't have any items in the {selectedCategory} category for {normalizedSeason} yet.</p>
                             <button
-                                onClick={() => setSelectedSeason('All')}
+                                onClick={() => setSelectedCategory('All')}
                                 className="mt-6 px-8 py-3 bg-black text-white rounded-full text-sm font-bold hover:bg-gray-800 transition-colors shadow-lg"
                             >
-                                Show All Products
+                                Show All Categories
                             </button>
                         </motion.div>
                     )}

@@ -104,12 +104,12 @@ export default function Home() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <div className="relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
+                            <Link to="/season/summer" className="block relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
                                 <img src="/images/categories/women.png" alt="Summer Collection" className="w-full h-full object-cover rounded-xl" />
                                 <div className="absolute bottom-6 left-0 right-0 text-center">
                                     <span className="bg-white/90 backdrop-blur-sm px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">Summer</span>
                                 </div>
-                            </div>
+                            </Link>
                         </motion.div>
 
                         {/* Center Content */}
@@ -142,7 +142,7 @@ export default function Home() {
                             >
                                 <h3 className="text-xl font-serif font-bold mb-2 text-gray-900">New Arrivals</h3>
                                 <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Premium 100% Cotton</p>
-                                <Link to="/shop" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg box-border block w-full">
+                                <Link to="/season/all" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg box-border block w-full">
                                     Discover
                                 </Link>
                             </motion.div>
@@ -156,12 +156,12 @@ export default function Home() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <div className="relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
+                            <Link to="/season/winter" className="block relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
                                 <img src="/images/categories/men.png" alt="Winter Collection" className="w-full h-full object-cover rounded-xl" />
                                 <div className="absolute bottom-6 left-0 right-0 text-center">
                                     <span className="bg-white/90 backdrop-blur-sm px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">Winter</span>
                                 </div>
-                            </div>
+                            </Link>
                         </motion.div>
 
                         {/* Central "Card" - Mobile Only (at bottom) */}
@@ -174,7 +174,7 @@ export default function Home() {
                         >
                             <h3 className="text-xl font-serif font-bold mb-2 text-gray-900">New Arrivals</h3>
                             <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Premium 100% Cotton</p>
-                            <Link to="/shop" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg block w-full">
+                            <Link to="/season/all" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg block w-full">
                                 Discover
                             </Link>
                         </motion.div>
@@ -212,29 +212,25 @@ export default function Home() {
                                 icon: Award,
                                 title: "Premium Quality",
                                 desc: "We use 100% fine cotton and pure wool for unmatched comfort.",
-                                color: "bg-brand-cream text-brand-gold",
-                                border: "border-brand-cream"
+                                color: "bg-white/10 text-brand-gold",
                             },
                             {
                                 icon: Heart,
                                 title: "Ethically Made",
                                 desc: "Traditional craftsmanship blended with fair trade practices.",
-                                color: "bg-brand-offwhite text-brand-gold",
-                                border: "border-brand-offwhite"
+                                color: "bg-white/10 text-brand-gold",
                             },
                             {
                                 icon: CheckCircle2,
                                 title: "Perfect Fit",
                                 desc: "Precision tailoring ensuring the perfect modern fit for every size.",
-                                color: "bg-brand-cream text-brand-gold",
-                                border: "border-brand-cream"
+                                color: "bg-white/10 text-brand-gold",
                             },
                             {
                                 icon: Users,
                                 title: "25+ Years Legacy",
                                 desc: "Trusted by generations for quality and durability in knitwear.",
-                                color: "bg-brand-offwhite text-brand-gold",
-                                border: "border-brand-offwhite"
+                                color: "bg-white/10 text-brand-gold",
                             }
                         ].map((item, idx) => (
                             <motion.div
@@ -242,13 +238,16 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
-                                className={`p-8 rounded-[2.5rem] border ${item.border} hover:shadow-2xl hover:shadow-gray-200 transition-all duration-500 bg-white group`}
+                                className="p-8 rounded-[2.5rem] border border-white/10 hover:border-brand-gold/30 hover:shadow-2xl transition-all duration-500 bg-black group relative overflow-hidden"
                             >
-                                <div className={`w-14 h-14 rounded-2xl ${item.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                                {/* Decorative Gradient Blob */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-brand-gold/10 transition-colors duration-500" />
+
+                                <div className={`w-14 h-14 rounded-2xl ${item.color} backdrop-blur-md flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-black transition-all duration-500`}>
                                     <item.icon className="w-7 h-7" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
-                                <p className="text-gray-500 leading-relaxed text-sm">{item.desc}</p>
+                                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-brand-gold transition-colors">{item.title}</h3>
+                                <p className="text-gray-400 leading-relaxed text-sm group-hover:text-gray-300 transition-colors">{item.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -256,7 +255,7 @@ export default function Home() {
             </section>
 
             {/* What Our Clients Say (Testimonials) */}
-            <section className="py-24 bg-gray-50 rounded-[4rem] mx-4 mb-24">
+            <section className="py-24 bg-[#F2F2F2] rounded-[4rem] mx-4 mb-24">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16 max-w-2xl mx-auto">
                         <motion.span

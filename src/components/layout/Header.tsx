@@ -1,7 +1,7 @@
 import { Search, ShoppingBag, Menu, Heart, X, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 
 const navLinks = [
@@ -15,6 +15,7 @@ const navLinks = [
 ];
 
 export default function Header() {
+    const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -70,16 +71,22 @@ export default function Header() {
                     </div>
 
                     {/* Center: Desktop Navigation */}
-                    <nav className="hidden lg:flex flex-1 items-center justify-center gap-8">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                to={link.path}
-                                className="text-sm font-bold tracking-widest text-gray-600 hover:text-black transition-colors uppercase relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-black after:transition-all hover:after:w-full"
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                    <nav className="hidden lg:flex flex-1 items-center justify-center gap-2">
+                        {navLinks.map((link) => {
+                            const isActive = location.pathname === link.path;
+                            return (
+                                <Link
+                                    key={link.name}
+                                    to={link.path}
+                                    className={`text-sm font-bold tracking-widest uppercase transition-all duration-300 px-4 py-2 rounded-full ${isActive
+                                        ? 'bg-black text-white shadow-md transform scale-105'
+                                        : 'text-gray-600 hover:text-black hover:bg-gray-100/50'
+                                        }`}
+                                >
+                                    {link.name}
+                                </Link>
+                            );
+                        })}
                     </nav>
 
                     {/* Right: Icons (Search, Wishlist, Cart) & Mobile Menu */}
@@ -93,7 +100,7 @@ export default function Header() {
 
                         <Link
                             to="/wishlist"
-                            className="hidden sm:block p-2 text-gray-800 hover:bg-black/5 hover:text-black rounded-full transition-all relative group"
+                            className="hidden lg:block p-2 text-gray-800 hover:bg-black/5 hover:text-black rounded-full transition-all relative group"
                         >
                             <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                             {wishlistItems.length > 0 && (
@@ -103,7 +110,7 @@ export default function Header() {
 
                         <Link
                             to="/cart"
-                            className="p-2 text-gray-800 hover:bg-black/5 hover:text-black rounded-full transition-all relative group"
+                            className="hidden lg:block p-2 text-gray-800 hover:bg-black/5 hover:text-black rounded-full transition-all relative group"
                         >
                             <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                             {cartItems.length > 0 && (
@@ -116,7 +123,7 @@ export default function Header() {
                         {/* Account Icon */}
                         <Link
                             to="/account"
-                            className="p-2 text-gray-800 hover:bg-black/5 hover:text-black rounded-full transition-all relative group"
+                            className="hidden lg:block p-2 text-gray-800 hover:bg-black/5 hover:text-black rounded-full transition-all relative group"
                             title={isLoggedIn ? 'My Account' : 'Login / Signup'}
                         >
                             <User className="w-5 h-5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
