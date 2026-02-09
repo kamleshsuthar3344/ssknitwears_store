@@ -7,11 +7,11 @@ import SEO from '../components/common/SEO';
 export default function Contact() {
     return (
         <Layout>
-            <SEO title="Contact Us | SSKNITWEAR" description="Get in touch with SSKNITWEAR for any inquiries, support, or feedback." />
+            <SEO title="Contact Us | SS Knitwear" description="Get in touch with SS Knitwear for any inquiries, support, or feedback." />
             <div className="bg-white">
                 {/* Small Colorful Hero Section */}
                 {/* Brand Hero Section */}
-                <section className="relative pt-32 pb-16 bg-brand-black overflow-hidden">
+                <section className="relative pt-24 pb-12 md:pt-32 md:pb-16 bg-brand-black overflow-hidden">
                     <div className="absolute inset-0 bg-white/5 backdrop-blur-3xl"></div>
                     <div className="container mx-auto px-6 relative z-10 text-center">
                         <motion.h1
@@ -33,12 +33,12 @@ export default function Contact() {
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="bg-brand-cream p-8 rounded-[2.5rem] border border-gray-100 hover:shadow-lg transition-all group"
+                                className="bg-brand-cream p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-gray-100 hover:shadow-lg transition-all group"
                             >
                                 <div className="w-14 h-14 bg-brand-black rounded-2xl flex items-center justify-center text-brand-gold mb-6 group-hover:rotate-12 transition-transform">
                                     <Mail className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">Email Us</h3>
+                                <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">Email Us</h3>
                                 <p className="text-brand-gold font-bold break-all">ssknitwears14@gmail.com</p>
                                 <p className="text-gray-500 text-sm mt-2">We'll respond within 24 hours.</p>
                             </motion.div>
@@ -47,12 +47,12 @@ export default function Contact() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="bg-brand-cream p-8 rounded-[2.5rem] border border-gray-100 hover:shadow-lg transition-all group"
+                                className="bg-brand-cream p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-gray-100 hover:shadow-lg transition-all group"
                             >
                                 <div className="w-14 h-14 bg-brand-black rounded-2xl flex items-center justify-center text-brand-gold mb-6 group-hover:rotate-12 transition-transform">
                                     <Phone className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">Call & WhatsApp</h3>
+                                <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">Call & WhatsApp</h3>
                                 <p className="text-brand-gold font-bold text-lg">+91 97597 22200</p>
                                 <p className="text-gray-500 text-sm mt-2">Mon - Sat: 10:00 AM - 7:00 PM</p>
                             </motion.div>
@@ -61,18 +61,15 @@ export default function Contact() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2 }}
-                                className="bg-brand-cream p-8 rounded-[2.5rem] border border-gray-100 hover:shadow-lg transition-all group"
+                                className="bg-brand-cream p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-gray-100 hover:shadow-lg transition-all group"
                             >
                                 <div className="w-14 h-14 bg-brand-black rounded-2xl flex items-center justify-center text-brand-gold mb-6 group-hover:rotate-12 transition-transform">
                                     <MapPin className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">Our Locations</h3>
+                                <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">Our Locations</h3>
                                 <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
                                     <p className="border-l-4 border-brand-gold pl-4 bg-white/50 p-3 rounded-xl">
-                                        C 10 Ahuja Colony, Kashipur Road, Rudrapur 263153
-                                    </p>
-                                    <p className="border-l-4 border-brand-gold pl-4 bg-white/50 p-3 rounded-xl">
-                                        A26, Balaji Mandir Road, Adarsh Colony, Rudrapur 263153
+                                        C-10, Kashipur Rd, Ahuja Colony, Dashmesh Nagar, Rudrapur, Uttarakhand 263153
                                     </p>
                                 </div>
                             </motion.div>
@@ -83,43 +80,65 @@ export default function Contact() {
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-white rounded-[3.5rem] p-8 md:p-14 shadow-2xl border border-gray-100 relative overflow-hidden"
+                                className="bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-14 shadow-2xl border border-gray-100 relative overflow-hidden"
                             >
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-cream rounded-full -mr-32 -mt-32 blur-3xl opacity-30"></div>
-                                <div className="relative p-12 h-full flex flex-col justify-between">
-                                    <div>
-                                        <div className="w-16 h-16 bg-brand-cream rounded-2xl flex items-center justify-center mb-8">
-                                            <MessageSquare className="w-8 h-8 text-brand-gold" />
+                                <div className="relative p-6 md:p-12 h-full flex flex-col justify-between">
+                                    <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
+                                        <div className="w-14 h-14 md:w-16 md:h-16 bg-brand-cream rounded-2xl flex items-center justify-center shrink-0">
+                                            <MessageSquare className="w-6 h-6 md:w-8 md:h-8 text-brand-gold" />
                                         </div>
                                         <div>
-                                            <h2 className="text-3xl font-serif font-bold text-gray-900 tracking-tight">Send a Message</h2>
-                                            <p className="text-gray-500">We'd love to hear from you.</p>
+                                            <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 tracking-tight">Send a Message</h2>
+                                            <p className="text-gray-500 text-sm md:text-base">We'd love to hear from you.</p>
                                         </div>
                                     </div>
 
-                                    <form className="space-y-8" onSubmit={(e) => { e.preventDefault(); toast.success("Message sent successfully!"); }}>
+                                    <form className="space-y-8" onSubmit={async (e) => {
+                                        e.preventDefault();
+                                        const formData = new FormData(e.currentTarget);
+                                        const data = {
+                                            name: formData.get('name'),
+                                            email: formData.get('email'),
+                                            subject: formData.get('subject'),
+                                            message: formData.get('message')
+                                        };
+
+                                        try {
+                                            // @ts-ignore
+                                            await import('../services/api').then(module => module.default.post('/contact', data));
+                                            toast.success("Message sent successfully!");
+                                            (e.target as HTMLFormElement).reset();
+                                        } catch (error) {
+                                            toast.error("Failed to send message. Please try again.");
+                                        }
+                                    }}>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                             <div className="space-y-2">
-                                                <label className="text-xs uppercase tracking-widest font-black text-gray-400 ml-4">Full Name</label>
+                                                <label className="text-xs uppercase tracking-widest font-bold text-gray-500 ml-4">Full Name</label>
                                                 <input
+                                                    name="name"
+                                                    required
                                                     type="text"
                                                     placeholder="Enter your name"
-                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
+                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-4 md:px-6 py-4 outline-none transition-all placeholder:text-gray-400 text-gray-900"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs uppercase tracking-widest font-black text-gray-400 ml-4">Email Address</label>
+                                                <label className="text-xs uppercase tracking-widest font-bold text-gray-500 ml-4">Email Address</label>
                                                 <input
+                                                    name="email"
+                                                    required
                                                     type="email"
                                                     placeholder="name@example.com"
-                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300"
+                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-4 md:px-6 py-4 outline-none transition-all placeholder:text-gray-400 text-gray-900"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-xs uppercase tracking-widest font-black text-gray-400 ml-4">Subject</label>
-                                            <select className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all appearance-none cursor-pointer">
+                                            <label className="text-xs uppercase tracking-widest font-bold text-gray-500 ml-4">Subject</label>
+                                            <select name="subject" className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-4 md:px-6 py-4 outline-none transition-all appearance-none cursor-pointer text-gray-900 text-base">
                                                 <option>General Inquiry</option>
                                                 <option>Product Support</option>
                                                 <option>Wholesale/B2B</option>
@@ -128,11 +147,13 @@ export default function Contact() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-xs uppercase tracking-widest font-black text-gray-400 ml-4">Your Message</label>
+                                            <label className="text-xs uppercase tracking-widest font-bold text-gray-500 ml-4">Your Message</label>
                                             <textarea
+                                                name="message"
+                                                required
                                                 rows={5}
                                                 placeholder="How can we help you?"
-                                                className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-6 py-4 outline-none transition-all placeholder:text-gray-300 resize-none"
+                                                className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-gold focus:bg-white rounded-2xl px-4 md:px-6 py-4 outline-none transition-all placeholder:text-gray-400 text-gray-900 resize-none"
                                             ></textarea>
                                         </div>
 
@@ -158,16 +179,16 @@ export default function Contact() {
 
                 {/* Map/Location Section */}
                 <section className="container mx-auto px-6 pb-20">
-                    <div className="bg-gray-100 h-[500px] rounded-[3rem] overflow-hidden shadow-lg border border-gray-100 relative">
+                    <div className="bg-gray-100 h-[300px] md:h-[500px] rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-lg border border-gray-100 relative">
                         <iframe
-                            src="https://maps.google.com/maps?q=C%2010%20Ahuja%20Colony%2C%20Kashipur%20Road%2C%20Rudrapur%20263153&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            src="https://maps.google.com/maps?q=C-10%2C%20Kashipur%20Rd%2C%20Ahuja%20Colony%2C%20Dashmesh%20Nagar%2C%20Rudrapur%2C%20Uttarakhand%20263153&t=&z=15&ie=UTF8&iwloc=&output=embed"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
                             allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                            title="SSKNITWEAR Location"
+                            title="SS Knitwear Location"
                             className="grayscale hover:grayscale-0 transition-all duration-700"
                         />
                     </div>

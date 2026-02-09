@@ -6,7 +6,7 @@ import SEO from '../components/common/SEO';
 export default function ReturnPolicy() {
     return (
         <Layout>
-            <SEO title="Return, Refund & Cancellation Policy | SSKNITWEAR" description="Read our policy regarding returns, refunds, and cancellations at SSKNITWEAR." />
+            <SEO title="Return, Refund & Cancellation Policy | SS Knitwear" description="Read our policy regarding returns, refunds, and cancellations at SS Knitwear." />
             <div className="pt-32 pb-24 px-4 bg-gray-50">
                 <div className="container mx-auto">
                     <motion.div
@@ -20,7 +20,7 @@ export default function ReturnPolicy() {
                         <h1 className="text-3xl md:text-5xl font-serif font-black text-gray-900 mb-8">Return, Refund & Cancellation Policy</h1>
 
                         <p className="text-gray-600 mb-8 leading-relaxed">
-                            This Return & Refund Policy is applicable to all purchases made from the official website of <strong>SSKNITWEAR</strong>. By placing an order on our website, you agree to the terms outlined below.
+                            This Return & Refund Policy is applicable to all purchases made from the official website of <strong>SS Knitwear</strong>. By placing an order on our website, you agree to the terms outlined below.
                         </p>
 
                         <div className="prose prose-lg text-gray-600 space-y-8 max-w-none">
@@ -103,7 +103,7 @@ export default function ReturnPolicy() {
                                     <p><strong>SSKNITWEAR</strong></p>
                                     <p><strong>Email:</strong> <a href="mailto:ssknitwearsonline@gmail.com" className="text-brand-gold hover:underline">ssknitwearsonline@gmail.com</a></p>
                                     <p><strong>Phone:</strong> +91 9759722200</p>
-                                    <p><strong>Address:</strong> C 10 Ahuja Colony, Kashipur Road, Rudrapur 263153</p>
+                                    <p><strong>Address:</strong> C-10, Kashipur Rd, Ahuja Colony, Dashmesh Nagar, Rudrapur, Uttarakhand 263153</p>
                                 </div>
                             </section>
                         </div>

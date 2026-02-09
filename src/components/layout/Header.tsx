@@ -10,6 +10,7 @@ const navLinks = [
     { name: 'Men', path: '/shop/men' },
     { name: 'Women', path: '/shop/women' },
     { name: 'Kids', path: '/shop/kids' },
+    { name: 'Blog', path: '/blog' },
     { name: 'Track Order', path: '/track-order' },
     { name: 'Contact Us', path: '/contact' },
 ];
@@ -61,10 +62,18 @@ export default function Header() {
                 <div className={`container mx-auto px-6 flex items-center justify-between transition-all duration-500 h-20`}>
                     {/* Left: Logo */}
                     <div className="flex-shrink-0">
-                        <Link to="/" className="hover:opacity-80 transition-opacity">
+                        <Link
+                            to="/"
+                            className="hover:opacity-80 transition-opacity"
+                            onClick={() => {
+                                if (location.pathname === '/') {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }
+                            }}
+                        >
                             <img
                                 src="/images/logo.png"
-                                alt="SSKNITWEAR"
+                                alt="SS Knitwear"
                                 className="h-16 w-auto object-contain"
                             />
                         </Link>
@@ -78,6 +87,11 @@ export default function Header() {
                                 <Link
                                     key={link.name}
                                     to={link.path}
+                                    onClick={() => {
+                                        if (isActive) {
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }
+                                    }}
                                     className={`text-sm font-bold tracking-widest uppercase transition-all duration-300 px-4 py-2 rounded-full ${isActive
                                         ? 'bg-black text-white shadow-md transform scale-105'
                                         : 'text-gray-600 hover:text-black hover:bg-gray-100/50'
@@ -162,23 +176,31 @@ export default function Header() {
                             className="fixed top-0 left-0 right-0 bg-white z-[49] pt-28 pb-12 px-6 lg:hidden shadow-2xl border-b border-gray-100"
                         >
                             <nav className="flex flex-col items-center gap-6">
-                                {navLinks.map((link, index) => (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: -20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.05 }}
-                                        key={link.name}
-                                        className="w-full text-center"
-                                    >
-                                        <Link
-                                            to={link.path}
-                                            className="block text-xl font-serif font-bold py-2 text-gray-900 hover:text-brand-gold transition-colors"
-                                            onClick={() => setIsMobileMenuOpen(false)}
+                                {navLinks.map((link, index) => {
+                                    const isActive = location.pathname === link.path;
+                                    return (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: index * 0.05 }}
+                                            key={link.name}
+                                            className="w-full text-center"
                                         >
-                                            {link.name}
-                                        </Link>
-                                    </motion.div>
-                                ))}
+                                            <Link
+                                                to={link.path}
+                                                className="block text-xl font-serif font-bold py-2 text-gray-900 hover:text-brand-gold transition-colors"
+                                                onClick={() => {
+                                                    setIsMobileMenuOpen(false);
+                                                    if (isActive) {
+                                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                                    }
+                                                }}
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        </motion.div>
+                                    );
+                                })}
                                 <motion.div
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}

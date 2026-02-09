@@ -9,8 +9,8 @@ interface SEOProps {
 
 export default function SEO({
     title,
-    description = "SSKNITWEAR - Premium Winter Collection",
-    name = "SSKNITWEAR",
+    description = "SS Knitwear - Premium Winter Collection",
+    name = "SS Knitwear",
     type = "website"
 }: SEOProps) {
     return (

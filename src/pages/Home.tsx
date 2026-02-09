@@ -35,7 +35,7 @@ export default function Home() {
     return (
         <Layout>
             <SEO
-                title="SSKNITWEAR | Premium Winter Collection"
+                title="SS Knitwear | Premium Winter Collection"
                 description="Discover the finest knitwear for men, women, and kids. Shop premium quality cardigans, sweaters, and pullovers."
             />
             {/* Hero Section with Parallax & Glassmorphism */}
@@ -104,7 +104,7 @@ export default function Home() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <Link to="/season/summer" className="block relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
+                            <Link to="/summer" className="block relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
                                 <img src="/images/categories/women.png" alt="Summer Collection" className="w-full h-full object-cover rounded-xl" />
                                 <div className="absolute bottom-6 left-0 right-0 text-center">
                                     <span className="bg-white/90 backdrop-blur-sm px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">Summer</span>
@@ -142,7 +142,7 @@ export default function Home() {
                             >
                                 <h3 className="text-xl font-serif font-bold mb-2 text-gray-900">New Arrivals</h3>
                                 <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Premium 100% Cotton</p>
-                                <Link to="/season/all" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg box-border block w-full">
+                                <Link to="/shop" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg box-border block w-full">
                                     Discover
                                 </Link>
                             </motion.div>
@@ -156,7 +156,7 @@ export default function Home() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <Link to="/season/winter" className="block relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
+                            <Link to="/winter" className="block relative aspect-[3/4] w-64 md:w-80 rounded-2xl overflow-hidden shadow-2xl bg-white p-2 transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
                                 <img src="/images/categories/men.png" alt="Winter Collection" className="w-full h-full object-cover rounded-xl" />
                                 <div className="absolute bottom-6 left-0 right-0 text-center">
                                     <span className="bg-white/90 backdrop-blur-sm px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">Winter</span>
@@ -174,7 +174,7 @@ export default function Home() {
                         >
                             <h3 className="text-xl font-serif font-bold mb-2 text-gray-900">New Arrivals</h3>
                             <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Premium 100% Cotton</p>
-                            <Link to="/season/all" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg block w-full">
+                            <Link to="/shop" className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg block w-full">
                                 Discover
                             </Link>
                         </motion.div>
@@ -202,7 +202,7 @@ export default function Home() {
                             whileInView={{ opacity: 1, y: 0 }}
                             className="text-4xl md:text-5xl font-serif font-black text-gray-900 mt-2"
                         >
-                            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-brand-gold">SSKNITWEAR</span>
+                            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-brand-gold text-3xl md:text-4xl">SS Knitwear</span>
                         </motion.h2>
                     </div>
 
@@ -404,7 +404,7 @@ export default function Home() {
                             className="flex flex-col items-center"
                         >
                             <RotateCcw className="w-10 h-10 text-gray-900 mb-6 stroke-1" />
-                            <h3 className="text-lg font-bold text-gray-900 mb-2">45 Days Return</h3>
+                            <h3 className="text-lg font-bold text-gray-900 mb-2">7 Days Return</h3>
                             <p className="text-gray-500 text-sm">Money back guarantee</p>
                         </motion.div>
 

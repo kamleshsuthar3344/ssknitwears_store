@@ -6,7 +6,7 @@ import SEO from '../components/common/SEO';
 export default function TermsOfService() {
     return (
         <Layout>
-            <SEO title="Terms of Service | SSKNITWEAR" description="Read the terms and conditions for shopping at SSKNITWEAR." />
+            <SEO title="Terms of Service | SS Knitwear" description="Read the terms and conditions for shopping at SS Knitwear." />
             <div className="pt-32 pb-24 px-4 bg-gray-50">
                 <div className="container mx-auto">
                     <motion.div
@@ -32,12 +32,12 @@ export default function TermsOfService() {
 
                             <section>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Intellectual Property</h2>
-                                <p>All content included on this site, such as text, graphics, logos, and images, is the property of SSKNITWEAR or its content suppliers and protected by international copyright laws.</p>
+                                <p>All content included on this site, such as text, graphics, logos, and images, is the property of SS Knitwear or its content suppliers and protected by international copyright laws.</p>
                             </section>
 
                             <section>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Limitation of Liability</h2>
-                                <p>SSKNITWEAR will not be liable for any damages that arise out of the use of our products or the inability to use the services offered on this website.</p>
+                                <p>SS Knitwear will not be liable for any damages that arise out of the use of our products or the inability to use the services offered on this website.</p>
                             </section>
 
                             <section>

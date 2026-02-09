@@ -16,7 +16,7 @@ export default function Cart() {
                     <h2 className="text-2xl font-serif font-bold text-gray-800 mb-4">
                         Oops no product in Cart, Cart is Empty
                     </h2>
-                    <Link to="/" className="px-6 py-3 bg-brand-black text-white rounded-full text-sm font-medium hover:bg-brand-gold hover:text-black transition-colors">
+                    <Link to="/shop" className="px-6 py-3 bg-brand-black text-white rounded-full text-sm font-medium hover:bg-brand-gold hover:text-black transition-colors">
                         Start Shopping
                     </Link>
                 </div>
@@ -93,12 +93,12 @@ export default function Cart() {
                                     <span>₹{totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
-                            <button
-                                onClick={() => toast.success("Checkout feature coming soon!")}
-                                className="w-full py-4 bg-brand-black text-white rounded-xl font-medium hover:bg-brand-gold hover:text-black transition-colors shadow-lg shadow-black/10"
+                            <Link
+                                to="/checkout"
+                                className="block w-full text-center py-4 bg-brand-black text-white rounded-xl font-medium hover:bg-brand-gold hover:text-black transition-colors shadow-lg shadow-black/10"
                             >
                                 Proceed to Checkout
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

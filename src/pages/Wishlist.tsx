@@ -17,7 +17,7 @@ export default function Wishlist() {
                     <h2 className="text-2xl font-serif font-bold text-gray-800 mb-4">
                         NO Product in your wishlist
                     </h2>
-                    <Link to="/" className="px-6 py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
+                    <Link to="/shop" className="px-6 py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
                         Discover Styles
                     </Link>
                 </div>

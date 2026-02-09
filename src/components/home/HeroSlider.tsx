@@ -2,7 +2,30 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { sliderData } from '../../data/productData';
+
+const sliderData = [
+    {
+        id: 1,
+        image: '/images/slider/slider1.png',
+        title: 'Winter Has Arrived.|Amazing new designs.',
+        subtitle: 'FW 18 Collection',
+        link: '/shop/women'
+    },
+    {
+        id: 2,
+        image: '/images/slider/slider2.png',
+        title: 'New Season Trends.|Bold & Beautiful.',
+        subtitle: 'Spring 2026',
+        link: '/shop'
+    },
+    {
+        id: 3,
+        image: '/images/slider/slide3.png',
+        title: 'Premium Knitwear.|Crafted for Comfort.',
+        subtitle: 'Summer Essentials',
+        link: '/shop'
+    }
+];
 
 export default function HeroSlider() {
     const [current, setCurrent] = useState(0);
@@ -11,12 +34,39 @@ export default function HeroSlider() {
         setCurrent((prev) => (prev + 1) % sliderData.length);
     };
 
+    const prevSlide = () => {
+        setCurrent((prev) => (prev - 1 + sliderData.length) % sliderData.length);
+    };
+
     useEffect(() => {
         const timer = setInterval(() => {
             nextSlide();
-        }, 7000);
+        }, 8000);
         return () => clearInterval(timer);
     }, []);
+
+    // Typewriter Component
+    const TypewriterLine = ({ text, delay = 0 }: { text: string; delay?: number }) => {
+        const characters = text.split("");
+        return (
+            <span className="block italic">
+                {characters.map((char, i) => (
+                    <motion.span
+                        key={i}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{
+                            duration: 0.05,
+                            delay: delay + i * 0.04,
+                            ease: "linear"
+                        }}
+                    >
+                        {char}
+                    </motion.span>
+                ))}
+            </span>
+        );
+    };
 
     return (
         <section className="relative h-[calc(100vh-60px)] md:h-[calc(100vh-80px)] w-full bg-[#F9F7F1] overflow-hidden">
@@ -24,19 +74,21 @@ export default function HeroSlider() {
             <AnimatePresence mode="wait">
                 <motion.div
                     key={current}
-                    className="absolute inset-0 w-full h-full"
+                    className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8 }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    onDragEnd={(_, info) => {
+                        if (info.offset.x > 80) prevSlide();
+                        else if (info.offset.x < -80) nextSlide();
+                    }}
                 >
-                    <div className="relative w-full h-full max-w-[1920px] mx-auto">
+                    <div className="relative w-full h-full max-w-[1920px] mx-auto pointer-events-none">
 
-                        {/* 
-                            Image Section 
-                            - Mobile: 70% width aligned right (leaves 30% left gap for text start). Object-left.
-                            - Desktop: Takes right 55%.
-                        */}
+                        {/* Image Section */}
                         <div className="absolute right-0 top-0 bottom-0 w-[70%] md:w-[60%] lg:w-[60%] h-full z-0">
                             <motion.img
                                 src={sliderData[current].image}
@@ -48,12 +100,8 @@ export default function HeroSlider() {
                             />
                         </div>
 
-                        {/* 
-                            Text Section 
-                            - Mobile: Left aligned, taking full width (layered over background).
-                            - Desktop: Left aligned, taking 45% width.
-                        */}
-                        <div className="absolute left-0 top-0 h-full w-full md:w-[65%] flex flex-col justify-center px-6 md:pl-20 lg:pl-32 z-10">
+                        {/* Text Section */}
+                        <div className="absolute left-0 top-0 h-full w-full md:w-[65%] flex flex-col justify-center px-6 md:pl-20 lg:pl-32 z-10 pointer-events-auto">
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -68,27 +116,20 @@ export default function HeroSlider() {
                                     {sliderData[current].subtitle}
                                 </motion.p>
 
-                                <motion.h1
-                                    className="text-black text-3xl sm:text-4xl md:text-5xl lg:text-[4.5rem] font-serif font-medium mb-8 md:mb-10 leading-[1.1]"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                >
-                                    {typeof sliderData[current].title === 'string' ? (
-                                        sliderData[current].title.split('|').map((line, index) => (
-                                            <span key={index} className="block">
-                                                {line}
-                                            </span>
-                                        ))
-                                    ) : (
-                                        sliderData[current].title
-                                    )}
-                                </motion.h1>
+                                <h1 className="text-black text-3xl sm:text-4xl md:text-5xl lg:text-[4.5rem] font-serif font-medium mb-8 md:mb-10 leading-[1.1]">
+                                    {sliderData[current].title.split('|').map((line, index) => (
+                                        <TypewriterLine
+                                            key={index}
+                                            text={line}
+                                            delay={0.6 + index * 1.5}
+                                        />
+                                    ))}
+                                </h1>
 
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 }}
+                                    transition={{ delay: 2.5 }}
                                 >
                                     <Link
                                         to={sliderData[current].link}
@@ -105,36 +146,29 @@ export default function HeroSlider() {
                 </motion.div>
             </AnimatePresence>
 
-            {/* Vertical Navigation (Desktop) */}
-            <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-8 z-20">
+            {/* Navigation Dots (Desktop) */}
+            <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-4 z-20">
                 {sliderData.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrent(index)}
-                        className="group flex items-center justify-end gap-3 outline-none"
+                        className="group relative flex items-center justify-center w-6 h-6 outline-none"
                     >
-                        <span className={`text-xs font-sans font-medium transition-colors duration-300 ${current === index ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'
-                            }`}>
-                            {index + 1}
-                        </span>
-
-                        <div className="relative w-8 h-[2px] flex items-center">
-                            {current === index && (
-                                <motion.div
-                                    layoutId="active-nav-line"
-                                    className="h-[2px] bg-black w-8 absolute right-0"
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            )}
-                            {current !== index && (
-                                <div className="h-[2px] bg-transparent w-8" />
-                            )}
-                        </div>
+                        <div className={`w-2 h-2 rounded-full transition-all duration-300 ${current === index ? 'bg-black scale-150' : 'bg-black/20 group-hover:bg-black/40'
+                            }`}
+                        />
+                        {current === index && (
+                            <motion.div
+                                layoutId="active-dot-ring"
+                                className="absolute inset-0 border border-black rounded-full"
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            />
+                        )}
                     </button>
                 ))}
             </div>
 
-            {/* Mobile Dots (Bottom-Left aligned or Center) */}
+            {/* Mobile Dots */}
             <div className="absolute bottom-6 left-6 flex gap-3 md:hidden z-20">
                 {sliderData.map((_, index) => (
                     <button
@@ -149,3 +183,4 @@ export default function HeroSlider() {
         </section>
     );
 }
+

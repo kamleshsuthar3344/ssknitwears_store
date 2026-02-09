@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
-import { productData } from '../data/productData';
+import api from '../services/api';
 import { Heart, Star, ShoppingBag, X, Send, Share2, Ruler, MessageCircle, Link } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,211 +16,236 @@ import { Instagram, Facebook, Linkedin } from 'lucide-react';
 
 export default function ProductDetails() {
     const { id } = useParams();
-    const product = productData.find(p => p.id === Number(id)) || productData[0];
-    const [selectedSize, setSelectedSize] = useState('M');
-    const [activeImage, setActiveImage] = useState(product.image);
+    const dispatch = useAppDispatch();
+    const wishlistItems = useAppSelector(state => state.wishlist.items);
+
+    const [product, setProduct] = useState<any>(null);
+    const [selectedColor, setSelectedColor] = useState<string>('');
+    const [selectedSize, setSelectedSize] = useState<string>('');
+    const [availableSizes, setAvailableSizes] = useState<string[]>([]);
+    const [activeImage, setActiveImage] = useState('');
 
     // Modals State
     const [isReviewOpen, setIsReviewOpen] = useState(false);
     const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
-
-    // Review Form State
     const [reviewName, setReviewName] = useState('');
     const [reviewComment, setReviewComment] = useState('');
     const [reviewRating, setReviewRating] = useState(5);
     const [reviews, setReviews] = useState([
         { id: 1, name: "Sarah J.", rating: 5, comment: "Absolutely love the quality! Fits perfectly.", date: "2 days ago" },
-        { id: 2, name: "Michael B.", rating: 4, comment: "Great texture, but shipping took a while.", date: "1 week ago" }
     ]);
 
-    const dispatch = useAppDispatch();
-    const wishlistItems = useAppSelector(state => state.wishlist.items);
-    const isWishlist = wishlistItems.some(item => item.id === product.id);
+    const isWishlist = product ? wishlistItems.some((item: any) => item.id === product.id) : false;
+    const colors = product ? Array.from(new Set(product.variants?.map((v: any) => v.color))) : [];
 
-    const sizes = ['S', 'M', 'L', 'XL'];
+    useEffect(() => {
+        if (id) {
+            api.get(`/products/${id}`).then(res => {
+                const p = res.data;
+                const variants = p.variants || [];
+                const colors = Array.from(new Set(variants.map((v: any) => v.color))).filter(Boolean) as string[];
 
-    // Mock dummy gallery since we might only have one image in mock data
-    const galleryImages = [product.image, product.image, product.image, product.image];
+                if (colors.length > 0) {
+                    setSelectedColor(colors[0]);
+                }
+
+                const mappedProduct = {
+                    ...p,
+                    price: `₹${p.sale_price || p.price}`,
+                    image: p.product_images?.find((img: any) => img.is_main)?.image_path || p.product_images?.[0]?.image_path || '/images/placeholder.jpg',
+                    images: p.product_images?.map((img: any) => img.image_path) || [p.image],
+                    variants: variants
+                };
+                setProduct(mappedProduct);
+                setActiveImage(mappedProduct.image);
+            }).catch(err => {
+                console.error(err);
+                setProduct(null);
+                toast.error("Failed to load product. Please try again later.");
+            });
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (product && selectedColor) {
+            const sizesForColor = product.variants
+                .filter((v: any) => v.color === selectedColor && v.stock > 0)
+                .map((v: any) => v.size);
+            setAvailableSizes(sizesForColor);
+
+            if (!sizesForColor.includes(selectedSize)) {
+                setSelectedSize(sizesForColor[0] || '');
+            }
+
+            // Switch to variant image if available
+            const variantWithImage = product.variants.find((v: any) => v.color === selectedColor && v.image);
+            if (variantWithImage && variantWithImage.image) {
+                setActiveImage(variantWithImage.image);
+            } else {
+                // Fallback to main product image
+                setActiveImage(product.image);
+            }
+        }
+    }, [selectedColor, product]);
+
+    const addToCartHandler = () => {
+        if (!selectedSize || !selectedColor) {
+            toast.error("Please select a size and color");
+            return;
+        }
+
+        const variant = product.variants.find((v: any) => v.color === selectedColor && v.size === selectedSize);
+
+        if (!variant) {
+            toast.error("Selected combination unavailable");
+            return;
+        }
+
+        dispatch(addToCart({
+            ...product,
+            variantId: variant.id,
+            selectedSize,
+            selectedColor,
+            price: variant.price || product.sale_price || parseInt(product.price.replace('₹', ''))
+        }));
+        toast.success(`Added ${product.name} to Cart`);
+    };
 
     const handleSubmitReview = (e: React.FormEvent) => {
         e.preventDefault();
-        const newReview = {
-            id: reviews.length + 1,
-            name: reviewName,
-            rating: reviewRating,
-            comment: reviewComment,
-            date: "Just now"
-        };
-        setReviews([newReview, ...reviews]);
-        setReviewName('');
-        setReviewComment('');
         setIsReviewOpen(false);
-        toast.success("Review submitted successfully!");
+        toast.success("Review submitted!");
     };
 
-    const handleShare = (platform: string) => {
-        if (platform === 'copy') {
-            navigator.clipboard.writeText(window.location.href);
-            toast.success("Link copied to clipboard!");
-            return;
-        }
-        // Mock share functionality
-        console.log(`Sharing to ${platform}`);
-        toast.success(`Shared to ${platform.charAt(0).toUpperCase() + platform.slice(1)}`);
-    };
+    const handleShare = (platform: string) => { /* Social share logic */ };
+
+    if (!product) {
+        return (
+            <Layout>
+                <div className="min-h-[60vh] flex flex-col items-center justify-center">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Loading...</h2>
+                    <p className="text-gray-500">Please wait while we fetch the product details.</p>
+                </div>
+            </Layout>
+        );
+    }
 
     return (
         <Layout>
-            <SEO
-                title={`${product.name} | SSKNITWEAR`}
-                description={`Buy ${product.name} - ${product.category}. Premium quality knitwear available now.`}
-            />
+            <SEO title={`${product.name} | SS`} description={product.description} />
             <div className="container mx-auto px-4 py-8 md:py-16">
-
-                {/* Breadcrumbs (Simple) */}
+                {/* Breadcrumbs */}
                 <div className="text-sm text-gray-400 mb-8 flex gap-2 items-center">
                     <span>Home</span> / <span>Shop</span> / <span className="text-gray-900 font-medium">{product.name}</span>
                 </div>
 
                 <div className="flex flex-col lg:grid lg:grid-cols-[100px_1fr_400px] gap-8 lg:gap-16 items-start">
 
-                    {/* LEFT: Vertical Gallery (Desktop) / Horizontal (Mobile) */}
+                    {/* Gallery */}
                     <div className="order-2 lg:order-1 flex lg:flex-col gap-4 overflow-x-auto lg:overflow-visible w-full">
-                        {galleryImages.map((img, i) => (
-                            <button
-                                key={i}
-                                onClick={() => setActiveImage(img)}
-                                className={`flex-shrink-0 w-20 h-24 lg:w-full lg:h-32 bg-gray-100 rounded-lg overflow-hidden border-2 transition-all ${activeImage === img ? 'border-brand-black' : 'border-transparent hover:border-gray-200'}`}
-                            >
-                                <img src={img} alt={`View ${i}`} className="w-full h-full object-cover" />
+                        {product.images?.map((img: string, i: number) => (
+                            <button key={i} onClick={() => setActiveImage(img)} className={`flex-shrink-0 w-20 h-24 lg:w-full lg:h-32 bg-gray-100 rounded-lg overflow-hidden border-2 transition-all ${activeImage === img ? 'border-black' : 'border-transparent'}`}>
+                                <img src={img} alt="" className="w-full h-full object-cover" />
                             </button>
                         ))}
                     </div>
 
-                    {/* CENTER: Main Image */}
-                    <div className="order-1 lg:order-2 w-full relative group">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            key={activeImage}
-                            className="aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden relative"
-                        >
-                            <img
-                                src={activeImage}
-                                alt={product.name}
-                                className="w-full h-full object-cover"
-                            />
-                            {/* Zoom hint or badge could go here */}
-                        </motion.div>
+                    {/* Main Image */}
+                    <div className="order-1 lg:order-2 w-full aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden">
+                        <img src={activeImage} alt={product.name} className="w-full h-full object-cover" />
                     </div>
 
-                    {/* RIGHT: Product Info */}
-                    <div className="order-3 lg:order-3 flex flex-col space-y-8 sticky top-32">
+                    {/* Info */}
+                    <div className="order-3 lg:order-3 sticky top-32 space-y-8">
                         <div>
-                            <span className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-3 block">{product.category}</span>
-                            <h1 className="text-3xl md:text-5xl font-serif font-bold text-gray-900 mb-4 leading-tight">{product.name}</h1>
-
-                            <div className="flex items-center justify-between mb-6">
-                                <span className="text-3xl font-medium text-gray-900">{product.price}</span>
-                                <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setIsReviewOpen(true)}>
-                                    <div className="flex text-brand-gold">
-                                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className={`w-4 h-4 ${i <= 4 ? 'fill-current' : ''}`} />)}
-                                    </div>
-                                    <span className="text-xs font-bold text-gray-500 underline decoration-gray-300 underline-offset-4">{reviews.length} Reviews</span>
-                                </div>
-                            </div>
-
-                            <p className="text-gray-600 leading-relaxed font-light">
-                                This premium knitwear piece combines timeless elegance with modern comfort. Crafted from the finest materials to ensure warmth and style for any occasion.
-                            </p>
+                            <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">{product.category}</span>
+                            <h1 className="text-3xl md:text-5xl font-serif font-bold mt-2 mb-4">{product.name}</h1>
+                            <div className="text-3xl font-medium">{product.price}</div>
                         </div>
 
                         {/* Variants */}
                         <div className="space-y-6 pt-6 border-t border-gray-100">
+                            {/* Colors */}
                             <div>
-                                <span className="text-sm font-bold text-gray-900 block mb-3">Color</span>
+                                <span className="text-sm font-bold block mb-3">Color: {selectedColor}</span>
                                 <div className="flex gap-2">
-                                    {['bg-stone-800', 'bg-blue-900', 'bg-red-900'].map((color, idx) => (
-                                        <button key={idx} className={`w-8 h-8 rounded-full ${color} border-2 border-white ring-1 ring-gray-200 hover:scale-110 transition-transform`} />
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className="flex justify-between mb-3">
-                                    <span className="text-sm font-bold text-gray-900">Select Size</span>
-                                    <button
-                                        onClick={() => setIsSizeChartOpen(true)}
-                                        className="flex items-center gap-1 text-xs text-gray-500 underline hover:text-black transition-colors"
-                                    >
-                                        <Ruler className="w-3 h-3" /> Size Chart
-                                    </button>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {sizes.map(size => (
+                                    {colors.map((color: any) => (
                                         <button
-                                            key={size}
-                                            onClick={() => setSelectedSize(size)}
-                                            className={`w-12 h-12 flex items-center justify-center text-sm font-bold border rounded-lg transition-all ${selectedSize === size
-                                                ? 'border-brand-black bg-brand-black text-white'
-                                                : 'border-gray-200 text-gray-600 hover:border-black'
-                                                }`}
+                                            key={color}
+                                            onClick={() => setSelectedColor(color)}
+                                            className={`px-4 py-2 border rounded-full text-sm transition-all ${selectedColor === color ? 'bg-black text-white' : 'hover:border-black'}`}
                                         >
-                                            {size}
+                                            {color}
                                         </button>
                                     ))}
                                 </div>
                             </div>
+
+                            {/* Sizes */}
+                            <div>
+                                <div className="flex justify-between mb-3">
+                                    <span className="text-sm font-bold">Size: {selectedSize || 'Select Color first'}</span>
+                                    <button onClick={() => setIsSizeChartOpen(true)} className="text-xs underline flex items-center gap-1"><Ruler className="w-3" /> Size Chart</button>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                    {['S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map(size => {
+                                        const isAvailable = availableSizes.includes(size);
+                                        return (
+                                            <button
+                                                key={size}
+                                                disabled={!isAvailable}
+                                                onClick={() => setSelectedSize(size)}
+                                                className={`w-12 h-12 flex items-center justify-center text-sm font-bold border rounded-lg transition-all
+                                                    ${selectedSize === size ? 'bg-black text-white border-black' :
+                                                        isAvailable ? 'hover:border-black text-gray-800' : 'opacity-30 cursor-not-allowed bg-gray-50 text-gray-400'}`}
+                                            >
+                                                {size}
+                                            </button>
+                                        )
+                                    })}
+                                </div>
+                            </div>
                         </div>
 
-                        {/* Actions */}
+                        {/* Add to Cart */}
                         <div className="flex gap-4">
                             <button
-                                onClick={() => {
-                                    dispatch(addToCart(product));
-                                    toast.success(`Added ${product.name} to Cart`);
-                                }}
-                                className="flex-1 bg-brand-black text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-brand-gold hover:text-black transition-all flex items-center justify-center gap-3 shadow-xl shadow-brand-black/10"
+                                onClick={addToCartHandler}
+                                className="flex-1 bg-black text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-gray-800 transition-all flex items-center justify-center gap-3"
                             >
-                                <ShoppingBag className="w-5 h-5" />
-                                Add to Cart
+                                <ShoppingBag className="w-5 h-5" /> Add to Cart
                             </button>
                             <button
-                                onClick={() => {
-                                    dispatch(toggleWishlist(product));
-                                    toast.success(isWishlist ? "Removed from Wishlist" : "Added to Wishlist");
-                                }}
-                                className={`w-14 h-14 flex items-center justify-center border-2 rounded-xl transition-all ${isWishlist
-                                    ? 'border-red-500 bg-red-50 text-red-500'
-                                    : 'border-gray-200 text-gray-400 hover:border-gray-300'}`}
+                                onClick={() => dispatch(toggleWishlist(product))}
+                                className={`w-14 h-14 flex items-center justify-center border-2 rounded-xl transition-all ${isWishlist ? 'border-red-500 text-red-500' : 'border-gray-200'}`}
                             >
                                 <Heart className={`w-6 h-6 ${isWishlist ? 'fill-current' : ''}`} />
                             </button>
                         </div>
+                    </div>
+                </div>
 
-                        {/* Meta & Social */}
-                        <div className="pt-8 space-y-4 border-t border-gray-100">
-                            <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-gray-400">
-                                <span>Tag: <span className="text-gray-900">Winter, Knitwear</span></span>
-                            </div>
+                {/* Meta & Social */}
+                <div className="pt-8 space-y-4 border-t border-gray-100">
+                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-gray-400">
+                        <span>Tag: <span className="text-gray-900">Winter, Knitwear</span></span>
+                    </div>
 
-                            <div className="flex items-center gap-4">
-                                <span className="text-sm font-bold text-gray-900">Share:</span>
-                                <div className="flex gap-3">
-                                    <button onClick={() => handleShare('whatsapp')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
-                                        <MessageCircle className="w-4 h-4" />
-                                    </button>
-                                    <button onClick={() => handleShare('facebook')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
-                                        <Facebook className="w-4 h-4" />
-                                    </button>
-                                    <button onClick={() => handleShare('instagram')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
-                                        <Instagram className="w-4 h-4" />
-                                    </button>
-                                    <button onClick={() => handleShare('copy')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors" title="Copy Link">
-                                        <Link className="w-4 h-4" />
-                                    </button>
-                                </div>
-                            </div>
+                    <div className="flex items-center gap-4">
+                        <span className="text-sm font-bold text-gray-900">Share:</span>
+                        <div className="flex gap-3">
+                            <button onClick={() => handleShare('whatsapp')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
+                                <MessageCircle className="w-4 h-4" />
+                            </button>
+                            <button onClick={() => handleShare('facebook')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
+                                <Facebook className="w-4 h-4" />
+                            </button>
+                            <button onClick={() => handleShare('instagram')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
+                                <Instagram className="w-4 h-4" />
+                            </button>
+                            <button onClick={() => handleShare('copy')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors" title="Copy Link">
+                                <Link className="w-4 h-4" />
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -344,7 +369,7 @@ export default function ProductDetails() {
                                 </tr>
                                 <tr>
                                     <td className="px-6 py-4 font-bold">Large (L)</td>
-                                    <td className="px-6 py-4 text-gray-600">42</td>
+                                    <td className="px-6 py-4 font-bold">42</td>
                                     <td className="px-6 py-4 text-gray-600">29</td>
                                     <td className="px-6 py-4 text-gray-600">18.5</td>
                                 </tr>
@@ -353,6 +378,18 @@ export default function ProductDetails() {
                                     <td className="px-6 py-4 text-gray-600">44</td>
                                     <td className="px-6 py-4 text-gray-600">30</td>
                                     <td className="px-6 py-4 text-gray-600">19.5</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-6 py-4 font-bold">XX-Large (XXL)</td>
+                                    <td className="px-6 py-4 text-gray-600">46</td>
+                                    <td className="px-6 py-4 text-gray-600">31</td>
+                                    <td className="px-6 py-4 text-gray-600">20.5</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-6 py-4 font-bold">XXX-Large (XXXL)</td>
+                                    <td className="px-6 py-4 text-gray-600">48</td>
+                                    <td className="px-6 py-4 text-gray-600">32</td>
+                                    <td className="px-6 py-4 text-gray-600">21.5</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -376,3 +413,4 @@ export default function ProductDetails() {
         </Layout>
     );
 }
+

@@ -1,10 +1,35 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { productData } from '../../data/productData';
+import api from '../../services/api';
 
 export default function FeaturedProducts() {
 
+
+    const [products, setProducts] = useState<any[]>([]);
+
+    useEffect(() => {
+        api.get('/products').then(res => {
+            const mappedProducts = res.data.map((p: any) => ({
+                id: p.id,
+                name: p.name,
+                price: `₹${parseFloat(p.sale_price || p.price).toFixed(2)}`,
+                originalPrice: p.sale_price ? `₹${parseFloat(p.price).toFixed(2)}` : null,
+                image: p.product_images?.length > 0
+                    ? p.product_images.find((img: any) => img.is_main)?.image_path || p.product_images[0].image_path
+                    : (p.images || '/images/placeholder.jpg'),
+                tag: (p.sale_price && p.price) ? `-${Math.round(((p.price - p.sale_price) / p.price) * 100)}%` : '',
+                season: p.season,
+                category: p.category
+            }));
+            setProducts(mappedProducts);
+        }).catch(err => console.error(err));
+    }, []);
+
+    if (products.length === 0) {
+        return <div className="py-20 text-center">Loading Featured Products...</div>;
+    }
 
     return (
         <section className="py-24 bg-white">
@@ -15,7 +40,7 @@ export default function FeaturedProducts() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {productData.slice(0, 8).map((product, index) => (
+                    {products.slice(0, 8).map((product, index) => (
                         <Link to={`/product/${product.id}`} key={product.id} className="group">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
@@ -73,7 +98,7 @@ export default function FeaturedProducts() {
 
                 <div className="mt-16 text-center">
                     <Link
-                        to="/season/all"
+                        to="/shop"
                         className="inline-block border-b-2 border-black pb-1 text-xs font-bold uppercase tracking-widest hover:text-gray-600 hover:border-gray-600 transition-all"
                     >
                         View All Products

@@ -6,7 +6,7 @@ import SEO from '../components/common/SEO';
 export default function ShippingPolicy() {
     return (
         <Layout>
-            <SEO title="Shipping Policy | SSKNITWEAR" description="Learn about our shipping rates, delivery times, and international shipping options." />
+            <SEO title="Shipping Policy | SS Knitwear" description="Learn about our shipping rates, delivery times, and international shipping options." />
             <div className="pt-32 pb-24 px-4 bg-gray-50">
                 <div className="container mx-auto">
                     <motion.div
@@ -42,7 +42,7 @@ export default function ShippingPolicy() {
 
                             <section>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Address Information</h2>
-                                <p>Please ensure that your shipping address is accurate. SSKNITWEAR is not responsible for deliveries made to incorrect addresses provided by the customer.</p>
+                                <p>Please ensure that your shipping address is accurate. SS Knitwear is not responsible for deliveries made to incorrect addresses provided by the customer.</p>
                             </section>
                         </div>
                     </motion.div>

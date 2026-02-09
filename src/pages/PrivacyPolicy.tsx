@@ -6,7 +6,7 @@ import SEO from '../components/common/SEO';
 export default function PrivacyPolicy() {
     return (
         <Layout>
-            <SEO title="Privacy Policy | SSKNITWEAR" description="Learn how SSKNITWEAR collects, uses, and protects your personal information." />
+            <SEO title="Privacy Policy | SS Knitwear" description="Learn how SS Knitwear collects, uses, and protects your personal information." />
             <div className="pt-32 pb-24 px-4 bg-gray-50">
                 <div className="container mx-auto">
                     <motion.div
@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
                         <div className="prose prose-lg text-gray-600 space-y-8">
                             <section>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
-                                <p>Welcome to SSKNITWEAR. Your privacy is of paramount importance when you use our website.</p>
+                                <p>Welcome to SS Knitwear. Your privacy is of paramount importance when you use our website.</p>
                             </section>
 
                             <section>

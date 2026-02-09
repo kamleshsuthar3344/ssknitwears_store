@@ -8,10 +8,12 @@ const footerLinks = {
         { name: 'Men', href: '/shop/men' },
         { name: 'Women', href: '/shop/women' },
         { name: 'Kids', href: '/shop/kids' },
+        { name: 'Blog', href: '/blog' },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
     ],
     support: [
+        { name: 'Find Our Stores', href: '/find-store' },
         { name: 'Track Order', href: '/track-order' },
         { name: 'Shipping Policy', href: '/shipping-policy' },
         { name: 'Returns & Refunds', href: '/return-policy' },
@@ -30,7 +32,7 @@ export default function Footer() {
                     <div className="space-y-6">
                         <img
                             src="/images/logo.png"
-                            alt="SSKNITWEAR"
+                            alt="SS Knitwear"
                             className="h-12 w-auto object-contain brightness-0 invert opacity-90"
                         />
                         <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
@@ -111,7 +113,7 @@ export default function Footer() {
                         </div>
                         <div className="flex items-start gap-3 text-sm text-gray-400">
                             <MapPin className="w-4 h-4 shrink-0 mt-1 text-brand-gold" />
-                            <span>C 10 Ahuja Colony, Kashipur Road, <br />Rudrapur 263153</span>
+                            <span>C-10, Kashipur Rd, Ahuja Colony, <br />Dashmesh Nagar, Rudrapur, Uttarakhand 263153</span>
                         </div>
                         <div className="flex items-center gap-3 text-sm text-gray-400 mt-2">
                             <Mail className="w-4 h-4 shrink-0 text-brand-gold" />
@@ -126,7 +128,7 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-                    <p>&copy; 2026 SSKNITWEAR. All rights reserved.</p>
+                    <p>&copy; 2026 SS Knitwear. All rights reserved.</p>
                     <div className="flex gap-6">
                         <Link to="/privacy" className="hover:text-brand-gold transition-colors">Privacy</Link>
                         <Link to="/terms" className="hover:text-brand-gold transition-colors">Terms</Link>
