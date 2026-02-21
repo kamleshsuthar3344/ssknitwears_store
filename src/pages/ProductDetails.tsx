@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import api from '../services/api';
-import { Heart, Star, ShoppingBag, X, Send, Share2, Ruler, MessageCircle, Link } from 'lucide-react';
+import { Heart, Star, ShoppingBag, X, Send, Share2, Ruler, MessageCircle, Link, FileDown, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -25,6 +25,10 @@ export default function ProductDetails() {
     const [availableSizes, setAvailableSizes] = useState<string[]>([]);
     const [activeImage, setActiveImage] = useState('');
 
+    // Image zoom state
+    const [isZooming, setIsZooming] = useState(false);
+    const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
+
     // Modals State
     const [isReviewOpen, setIsReviewOpen] = useState(false);
     const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
@@ -34,6 +38,7 @@ export default function ProductDetails() {
     const [reviews, setReviews] = useState([
         { id: 1, name: "Sarah J.", rating: 5, comment: "Absolutely love the quality! Fits perfectly.", date: "2 days ago" },
     ]);
+    const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
 
     const isWishlist = product ? wishlistItems.some((item: any) => item.id === product.id) : false;
     const colors = product ? Array.from(new Set(product.variants?.map((v: any) => v.color))) : [];
@@ -58,6 +63,29 @@ export default function ProductDetails() {
                 };
                 setProduct(mappedProduct);
                 setActiveImage(mappedProduct.image);
+
+                // Fetch related products - all products, prioritize same category
+                api.get(`/products`)
+                    .then(relRes => {
+                        const allProducts = relRes.data.data || relRes.data || [];
+                        // Filter out current product
+                        const otherProducts = allProducts.filter((rp: any) => rp.id !== parseInt(id as string));
+                        // Sort to prioritize same category, then take first 4
+                        const sortedProducts = otherProducts.sort((a: any, b: any) => {
+                            if (a.category === p.category && b.category !== p.category) return -1;
+                            if (a.category !== p.category && b.category === p.category) return 1;
+                            return 0;
+                        });
+                        const filteredRelated = sortedProducts
+                            .slice(0, 4)
+                            .map((rp: any) => ({
+                                ...rp,
+                                price: `₹${rp.sale_price || rp.price}`,
+                                image: rp.product_images?.find((img: any) => img.is_main)?.image_path || rp.product_images?.[0]?.image_path || '/images/placeholder.jpg',
+                            }));
+                        setRelatedProducts(filteredRelated);
+                    })
+                    .catch(() => setRelatedProducts([]));
             }).catch(err => {
                 console.error(err);
                 setProduct(null);
@@ -150,34 +178,105 @@ export default function ProductDetails() {
                         ))}
                     </div>
 
-                    {/* Main Image */}
-                    <div className="order-1 lg:order-2 w-full aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden">
-                        <img src={activeImage} alt={product.name} className="w-full h-full object-cover" />
+                    {/* Main Image with Zoom */}
+                    <div
+                        className="order-1 lg:order-2 w-full aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden cursor-zoom-in relative"
+                        onMouseEnter={() => setIsZooming(true)}
+                        onMouseLeave={() => setIsZooming(false)}
+                        onMouseMove={(e) => {
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            const x = ((e.clientX - rect.left) / rect.width) * 100;
+                            const y = ((e.clientY - rect.top) / rect.height) * 100;
+                            setZoomPosition({ x, y });
+                        }}
+                    >
+                        <img
+                            src={activeImage}
+                            alt={product.name}
+                            className="w-full h-full object-cover transition-transform duration-300 ease-out"
+                            style={{
+                                transform: isZooming ? 'scale(2)' : 'scale(1)',
+                                transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
+                            }}
+                        />
                     </div>
 
                     {/* Info */}
-                    <div className="order-3 lg:order-3 sticky top-32 space-y-8">
+                    <div className="order-3 lg:order-3 sticky top-32 space-y-6">
                         <div>
                             <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">{product.category}</span>
-                            <h1 className="text-3xl md:text-5xl font-serif font-bold mt-2 mb-4">{product.name}</h1>
-                            <div className="text-3xl font-medium">{product.price}</div>
+                            <h1 className="text-3xl md:text-4xl font-serif font-bold mt-2 mb-4">{product.name}</h1>
+
+                            {/* Price with Reviews */}
+                            <div className="flex items-center justify-between">
+                                <span className="text-2xl font-medium">{product.price}</span>
+                                <button
+                                    onClick={() => setIsReviewOpen(true)}
+                                    className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                                >
+                                    <div className="flex text-brand-gold">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} className={`w-4 h-4 ${i < 4 ? 'fill-current' : ''}`} />
+                                        ))}
+                                    </div>
+                                    <span className="text-sm text-blue-600 hover:underline">{reviews.length} Reviews</span>
+                                </button>
+                            </div>
+
+                            {/* Short Description */}
+                            <p className="text-gray-600 text-sm leading-relaxed mt-4">
+                                {product.description || 'This premium knitwear piece combines timeless elegance with modern comfort. Crafted from the finest materials to ensure warmth and style for any occasion.'}
+                            </p>
                         </div>
 
                         {/* Variants */}
                         <div className="space-y-6 pt-6 border-t border-gray-100">
-                            {/* Colors */}
+                            {/* Colours */}
                             <div>
-                                <span className="text-sm font-bold block mb-3">Color: {selectedColor}</span>
+                                <span className="text-sm font-bold block mb-3">Colour</span>
                                 <div className="flex gap-2">
-                                    {colors.map((color: any) => (
-                                        <button
-                                            key={color}
-                                            onClick={() => setSelectedColor(color)}
-                                            className={`px-4 py-2 border rounded-full text-sm transition-all ${selectedColor === color ? 'bg-black text-white' : 'hover:border-black'}`}
-                                        >
-                                            {color}
-                                        </button>
-                                    ))}
+                                    {colors.map((color: any) => {
+                                        // Get color code from the variant if available
+                                        const variant = product.variants?.find((v: any) => v.color === color);
+                                        const colorCode = variant?.color_code || variant?.colorCode;
+
+                                        // Normalize color name to lowercase for matching
+                                        const normalizedColor = color?.toLowerCase?.() || '';
+
+                                        // Fallback color map with lowercase keys
+                                        const colorMap: { [key: string]: string } = {
+                                            'black': '#000000',
+                                            'blue': '#1E40AF',
+                                            'red': '#DC2626',
+                                            'white': '#FFFFFF',
+                                            'gray': '#6B7280',
+                                            'grey': '#6B7280',
+                                            'navy': '#1E3A5F',
+                                            'green': '#16A34A',
+                                            'brown': '#92400E',
+                                            'beige': '#D4B896',
+                                            'maroon': '#7F1D1D',
+                                            'yellow': '#FBBF24',
+                                            'yello': '#FBBF24', // common typo
+                                            'pink': '#EC4899',
+                                            'purple': '#7C3AED',
+                                            'orange': '#F97316',
+                                            'gold': '#D4AF37',
+                                            'silver': '#C0C0C0',
+                                            'cream': '#FFFDD0',
+                                            'tan': '#D2B48C',
+                                        };
+                                        const bgColor = colorCode || colorMap[normalizedColor] || '#CBD5E1';
+                                        return (
+                                            <button
+                                                key={color}
+                                                onClick={() => setSelectedColor(color)}
+                                                className={`w-8 h-8 rounded-full transition-transform hover:scale-110 ${selectedColor === color ? 'ring-2 ring-offset-2 ring-gray-400' : 'ring-1 ring-gray-200'}`}
+                                                style={{ backgroundColor: bgColor }}
+                                                title={color}
+                                            />
+                                        );
+                                    })}
                                 </div>
                             </div>
 
@@ -222,33 +321,99 @@ export default function ProductDetails() {
                                 <Heart className={`w-6 h-6 ${isWishlist ? 'fill-current' : ''}`} />
                             </button>
                         </div>
-                    </div>
-                </div>
 
-                {/* Meta & Social */}
-                <div className="pt-8 space-y-4 border-t border-gray-100">
-                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-gray-400">
-                        <span>Tag: <span className="text-gray-900">Winter, Knitwear</span></span>
-                    </div>
+                        {/* Tag & Share */}
+                        <div className="space-y-4 pt-6">
+                            {/* Tag */}
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">TAG:</span>
+                                <span className="text-xs font-bold tracking-widest text-gray-900 uppercase">
+                                    {product.season || 'WINTER'}, {product.category?.toUpperCase() || 'KNITWEAR'}
+                                </span>
+                            </div>
 
-                    <div className="flex items-center gap-4">
-                        <span className="text-sm font-bold text-gray-900">Share:</span>
-                        <div className="flex gap-3">
-                            <button onClick={() => handleShare('whatsapp')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
-                                <MessageCircle className="w-4 h-4" />
-                            </button>
-                            <button onClick={() => handleShare('facebook')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
-                                <Facebook className="w-4 h-4" />
-                            </button>
-                            <button onClick={() => handleShare('instagram')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
-                                <Instagram className="w-4 h-4" />
-                            </button>
-                            <button onClick={() => handleShare('copy')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors" title="Copy Link">
-                                <Link className="w-4 h-4" />
-                            </button>
+                            {/* Share */}
+                            <div className="flex items-center gap-3">
+                                <span className="text-sm font-bold text-gray-900">Share:</span>
+                                <button onClick={() => handleShare('whatsapp')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
+                                    <MessageCircle className="w-4 h-4" />
+                                </button>
+                                <button onClick={() => handleShare('facebook')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
+                                    <Facebook className="w-4 h-4" />
+                                </button>
+                                <button onClick={() => handleShare('instagram')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors">
+                                    <Instagram className="w-4 h-4" />
+                                </button>
+                                <button onClick={() => handleShare('copy')} className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold hover:bg-gray-200 transition-colors" title="Copy Link">
+                                    <Link className="w-4 h-4" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Related Products Section */}
+                {relatedProducts.length > 0 && (
+                    <div className="mt-20 pt-16 border-t border-gray-200">
+                        {/* Stylish Centered Title */}
+                        <div className="text-center mb-12">
+                            <span className="text-xs font-bold tracking-[0.3em] text-brand-gold uppercase">Discover More</span>
+                            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-2">You May Also Like</h2>
+                            <div className="flex items-center justify-center gap-3 mt-4">
+                                <div className="w-12 h-0.5 bg-brand-gold"></div>
+                                <div className="w-2 h-2 rounded-full bg-brand-gold"></div>
+                                <div className="w-12 h-0.5 bg-brand-gold"></div>
+                            </div>
+                        </div>
+
+                        {/* Product Grid - Centered when less than 4 */}
+                        <div className={`grid gap-8 ${relatedProducts.length >= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-' + Math.min(relatedProducts.length, 4)} ${relatedProducts.length < 4 ? 'max-w-3xl mx-auto' : ''}`}>
+                            {relatedProducts.map((rp: any) => (
+                                <a
+                                    key={rp.id}
+                                    href={`/product/${rp.id}`}
+                                    className="group"
+                                >
+                                    {/* Product Card */}
+                                    <div className="relative overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 transition-all duration-300 group-hover:shadow-xl group-hover:border-brand-gold/30">
+                                        {/* Image Container */}
+                                        <div className="aspect-[3/4] overflow-hidden">
+                                            <img
+                                                src={rp.image}
+                                                alt={rp.name}
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                        </div>
+
+                                        {/* Quick View Overlay */}
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100">
+                                            <span className="bg-white text-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                                Quick View
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Product Info */}
+                                    <div className="text-center mt-4 px-2">
+                                        <p className="text-xs text-brand-gold font-medium uppercase tracking-wider mb-1">{rp.category}</p>
+                                        <h3 className="font-serif font-medium text-gray-900 truncate group-hover:text-brand-gold transition-colors">{rp.name}</h3>
+                                        <p className="font-bold text-gray-900 mt-1">{rp.price}</p>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* View All Button */}
+                        <div className="text-center mt-10">
+                            <a
+                                href="/shop"
+                                className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white rounded-full font-bold text-sm uppercase tracking-wider hover:bg-brand-gold transition-colors"
+                            >
+                                View All Products <ChevronRight className="w-4 h-4" />
+                            </a>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* REVIEW MODAL */}
@@ -408,6 +573,17 @@ export default function ProductDetails() {
                             </p>
                         </div>
                     </div>
+
+                    {/* Download PDF Button */}
+                    <a
+                        href="/size-chart.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-brand-black text-white py-3 rounded-xl font-bold text-sm uppercase tracking-wide hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                    >
+                        <FileDown className="w-4 h-4" />
+                        Download Complete Size Chart (PDF)
+                    </a>
                 </div>
             </Modal>
         </Layout>

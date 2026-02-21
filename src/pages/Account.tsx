@@ -18,10 +18,19 @@ export default function Account() {
     const from = location.state?.from?.pathname || '/account';
 
     useEffect(() => {
-        if (isAuthenticated && from !== '/account') {
-            navigate(from, { replace: true });
+        if (isAuthenticated) {
+            if (from !== '/account') {
+                navigate(from, { replace: true });
+            } else if (user) {
+                // Smart redirect based on role
+                if (user.role === 'admin' || user.role === 'super_admin') {
+                    navigate('/admin/dashboard', { replace: true });
+                } else if (user.role === 'seller') {
+                    navigate('/seller/dashboard', { replace: true });
+                }
+            }
         }
-    }, [isAuthenticated, navigate, from]);
+    }, [isAuthenticated, user, navigate, from]);
 
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
@@ -73,6 +82,14 @@ export default function Account() {
             setTimeout(() => {
                 if (from && from !== '/account') {
                     navigate(from, { replace: true });
+                } else {
+                    // Smart redirect based on role
+                    const role = response.data.user.role;
+                    if (role === 'admin' || role === 'super_admin') {
+                        navigate('/admin/dashboard', { replace: true });
+                    } else if (role === 'seller') {
+                        navigate('/seller/dashboard', { replace: true });
+                    }
                 }
             }, 1000);
 

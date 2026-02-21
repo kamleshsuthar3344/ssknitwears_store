@@ -51,6 +51,16 @@ export default function Cart() {
                                             </button>
                                         </div>
                                         <p className="text-sm text-gray-500 mt-1">{item.category}</p>
+                                        {item.sku && (
+                                            <p className="text-xs font-mono text-gray-400">SKU: {item.sku}</p>
+                                        )}
+                                        {(item.selectedSize || item.selectedColor) && (
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {item.selectedColor && <span>Color: {item.selectedColor}</span>}
+                                                {item.selectedColor && item.selectedSize && ' | '}
+                                                {item.selectedSize && <span>Size: {item.selectedSize}</span>}
+                                            </p>
+                                        )}
                                     </div>
                                     <div className="flex justify-between items-end">
                                         <div className="flex items-center gap-3 bg-gray-50 rounded-full px-3 py-1">

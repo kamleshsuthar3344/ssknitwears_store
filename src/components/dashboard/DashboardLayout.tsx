@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation, Link, Navigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { logout } from '../../store/slices/authSlice';
 import {
@@ -26,10 +26,12 @@ export default function DashboardLayout() {
 
     const handleLogout = () => {
         dispatch(logout());
-        navigate('/login');
+        navigate('/account');
     };
 
-    if (!user) return null;
+    if (!user) {
+        return <Navigate to="/account" replace />;
+    }
 
     const isAdmin = user.role === 'admin' || user.role === 'super_admin';
     const isSeller = user.role === 'seller';

@@ -4,6 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export interface CartItem {
     id: number;
     name: string;
+    sku?: string;
     price: string; // e.g., "₹715.00"
     image: string;
     category: string;

@@ -46,15 +46,15 @@ export default function SellerDashboard() {
                 {/* Mobile-friendly stats */}
                 <div className="bg-gradient-to-br from-orange-50 to-white p-4 rounded-2xl shadow-sm border border-orange-100">
                     <h3 className="text-orange-600 text-xs font-bold uppercase tracking-wider">Sales</h3>
-                    <p className="text-2xl font-black mt-1">₹{stats?.total_sales.toLocaleString() || '0'}</p>
+                    <p className="text-2xl font-black mt-1">₹{stats?.total_sales?.toLocaleString() || '0'}</p>
                 </div>
                 <div className="bg-gradient-to-br from-blue-50 to-white p-4 rounded-2xl shadow-sm border border-blue-100">
                     <h3 className="text-blue-600 text-xs font-bold uppercase tracking-wider">Orders</h3>
-                    <p className="text-2xl font-black mt-1">{stats?.total_orders || '0'}</p>
+                    <p className="text-2xl font-black mt-1">{stats?.total_orders?.toLocaleString() || '0'}</p>
                 </div>
                 <div className="bg-gradient-to-br from-green-50 to-white p-4 rounded-2xl shadow-sm border border-green-100 col-span-2 lg:col-span-1">
                     <h3 className="text-green-600 text-xs font-bold uppercase tracking-wider">Products</h3>
-                    <p className="text-2xl font-black mt-1">{stats?.total_products || '0'}</p>
+                    <p className="text-2xl font-black mt-1">{stats?.total_products?.toLocaleString() || '0'}</p>
                 </div>
             </div>
 

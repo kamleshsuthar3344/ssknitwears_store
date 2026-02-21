@@ -24,15 +24,7 @@ export default function Header() {
 
     const { items: cartItems } = useAppSelector(state => state.cart);
     const { items: wishlistItems } = useAppSelector(state => state.wishlist);
-
-    // Mock user state (In a real app, this would come from Redux auth slice)
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        // Check if user info exists in localStorage
-        const user = localStorage.getItem('user_email');
-        if (user) setIsLoggedIn(true);
-    }, []);
+    const { user, isAuthenticated } = useAppSelector(state => state.auth);
 
     // Dynamic Header Background on Scroll
     useEffect(() => {
@@ -42,6 +34,13 @@ export default function Header() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const getAccountLink = () => {
+        if (!isAuthenticated || !user) return '/account';
+        if (user.role === 'admin' || user.role === 'super_admin') return '/admin/dashboard';
+        if (user.role === 'seller') return '/seller/dashboard';
+        return '/account';
+    };
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -136,12 +135,12 @@ export default function Header() {
 
                         {/* Account Icon */}
                         <Link
-                            to="/account"
+                            to={getAccountLink()}
                             className="hidden lg:block p-2 text-gray-800 hover:bg-black/5 hover:text-black rounded-full transition-all relative group"
-                            title={isLoggedIn ? 'My Account' : 'Login / Signup'}
+                            title={isAuthenticated ? 'My Account' : 'Login / Signup'}
                         >
                             <User className="w-5 h-5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                            {isLoggedIn && (
+                            {isAuthenticated && (
                                 <span className="absolute bottom-1 right-1 w-2 h-2 bg-green-500 rounded-full ring-2 ring-white" />
                             )}
                         </Link>
@@ -208,12 +207,12 @@ export default function Header() {
                                     className="w-full pt-4"
                                 >
                                     <Link
-                                        to="/account"
+                                        to={getAccountLink()}
                                         className="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-sm shadow-xl hover:shadow-2xl transition-all"
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         <User className="w-5 h-5" />
-                                        {isLoggedIn ? 'My Account' : 'Login / Signup'}
+                                        {isAuthenticated ? 'My Account' : 'Login / Signup'}
                                     </Link>
                                 </motion.div>
                             </nav>

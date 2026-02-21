@@ -287,7 +287,17 @@ export default function Checkout() {
                                             </div>
                                             <div className="flex-1">
                                                 <h4 className="font-medium text-sm text-gray-900 line-clamp-2">{item.name}</h4>
+                                                {item.sku && (
+                                                    <p className="text-xs font-mono text-gray-400">SKU: {item.sku}</p>
+                                                )}
                                                 <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                                                {(item.selectedSize || item.selectedColor) && (
+                                                    <p className="text-xs text-gray-400">
+                                                        {item.selectedColor && <span>{item.selectedColor}</span>}
+                                                        {item.selectedColor && item.selectedSize && ' / '}
+                                                        {item.selectedSize && <span>{item.selectedSize}</span>}
+                                                    </p>
+                                                )}
                                             </div>
                                             <div className="text-right">
                                                 <p className="font-bold text-sm">{item.price}</p>

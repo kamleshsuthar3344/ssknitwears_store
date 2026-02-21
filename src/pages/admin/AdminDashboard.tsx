@@ -52,25 +52,25 @@ export default function AdminDashboard() {
                 {/* Stats Cards */}
                 <StatsCard
                     title="Total Revenue"
-                    value={`₹${stats?.total_revenue.toLocaleString()}`}
+                    value={`₹${stats?.total_revenue?.toLocaleString() || '0'}`}
                     subtitle="from completed orders"
                     icon="💰"
                 />
                 <StatsCard
                     title="Total Orders"
-                    value={stats?.total_orders.toLocaleString() || '0'}
-                    subtitle={`${stats?.pending_orders} pending`}
+                    value={stats?.total_orders?.toLocaleString() || '0'}
+                    subtitle={`${stats?.pending_orders || 0} pending`}
                     icon="📦"
                 />
                 <StatsCard
                     title="Active Users"
-                    value={stats?.total_users.toLocaleString() || '0'}
-                    subtitle={`${stats?.active_sellers} registered sellers`}
+                    value={stats?.total_users?.toLocaleString() || '0'}
+                    subtitle={`${stats?.active_sellers || 0} registered sellers`}
                     icon="👥"
                 />
                 <StatsCard
                     title="Total Products"
-                    value={stats?.total_products.toLocaleString() || '0'}
+                    value={stats?.total_products?.toLocaleString() || '0'}
                     subtitle="across all categories"
                     icon="🏷️"
                 />

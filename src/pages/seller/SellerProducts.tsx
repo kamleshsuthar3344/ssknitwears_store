@@ -97,6 +97,9 @@ export default function SellerProducts() {
                             </div>
                             <div className="p-4">
                                 <h3 className="font-bold truncate">{product.name}</h3>
+                                {product.sku && (
+                                    <p className="text-xs font-mono text-gray-400 mt-1">SKU: {product.sku}</p>
+                                )}
                                 <div className="flex justify-between items-center mt-2">
                                     <p className="text-sm text-gray-500">₹{product.price}</p>
                                     <p className="text-xs text-gray-400">Stock: {product.stock}</p>

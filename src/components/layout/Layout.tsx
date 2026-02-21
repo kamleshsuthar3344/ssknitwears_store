@@ -56,19 +56,6 @@ export default function Layout({ children, hideHeader = false, hideBottomNav = f
                 {children}
             </main>
 
-            {/* Global Shop CTA (Static) */}
-            {!hideShopCTA && (
-                <div className="py-16 px-4 bg-gray-50 border-t border-gray-100 flex justify-center">
-                    <Link
-                        to="/shop"
-                        className="inline-flex items-center gap-3 bg-black text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 group"
-                    >
-                        <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                        Start Shopping
-                    </Link>
-                </div>
-            )}
-
             {/* Floating Shop CTA (Popup) */}
             <AnimatePresence>
                 {!hideShopCTA && isCTAVisible && (
