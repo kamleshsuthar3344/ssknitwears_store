@@ -79,9 +79,9 @@ export default function Layout({ children, hideHeader = false, hideBottomNav = f
                                 animate={{
                                     scale: [1, 1.05, 1],
                                     boxShadow: [
-                                        "0 10px 15px -3px rgba(220, 38, 38, 0.3)",
-                                        "0 20px 25px -5px rgba(220, 38, 38, 0.5)",
-                                        "0 10px 15px -3px rgba(220, 38, 38, 0.3)"
+                                        "0 10px 15px -3px rgba(139, 0, 0, 0.3)",
+                                        "0 20px 25px -5px rgba(139, 0, 0, 0.5)",
+                                        "0 10px 15px -3px rgba(139, 0, 0, 0.3)"
                                     ]
                                 }}
                                 transition={{
@@ -89,7 +89,7 @@ export default function Layout({ children, hideHeader = false, hideBottomNav = f
                                     repeat: Infinity,
                                     ease: "easeInOut"
                                 }}
-                                className="flex items-center gap-1.5 sm:gap-2 bg-red-600 text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-full font-bold text-xs sm:text-base shadow-xl border-2 border-white/20"
+                                className="flex items-center gap-1.5 sm:gap-2 bg-[#8B0000] text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-full font-bold text-xs sm:text-base shadow-xl border-2 border-white/20"
                             >
                                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
                                 Start Shopping
